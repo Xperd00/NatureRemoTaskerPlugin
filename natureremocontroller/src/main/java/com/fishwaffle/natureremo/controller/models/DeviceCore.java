@@ -4,7 +4,11 @@
 
 package com.fishwaffle.natureremo.controller.models;
 
-public class DeviceCore {
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class DeviceCore implements Serializable {
     /**デバイス名*/
     public String name;
     /**デバイスID*/
@@ -13,6 +17,10 @@ public class DeviceCore {
     public String created_at;
     /** 更新日時 */
     public String updated_at;
+    /** Macアドレス */
+    public String mac_address;
+    /** シリアルナンバー */
+    public String serial_number;
     /** ファームウェアバージョン */
     public String firmware_version;
     /** 温度校正値 */
@@ -20,6 +28,7 @@ public class DeviceCore {
     /** 湿度校正値 */
     public int humidity_offset;
 
+    @NonNull
     @Override
     public String toString() {
         return "DeviceCore{" +

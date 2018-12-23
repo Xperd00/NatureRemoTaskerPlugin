@@ -4,10 +4,14 @@
 
 package com.fishwaffle.natureremo.controller.models;
 
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
 /**
  * Model(プリセット情報)
  */
-public class ApplianceModel {
+public class ApplianceModel implements Serializable {
     /** プリセットID */
     public String id;
     /** メーカー */
@@ -21,6 +25,7 @@ public class ApplianceModel {
     /** アイコン */
     public String image;
 
+    @NonNull
     @Override
     public String toString() {
         return "ApplianceModel{" + "id='" + id + '\'' + ", manufacturer='" + manufacturer + '\'' + ", remote_name='" + remote_name + '\'' + ", series='" + series + '\'' + ", name='" + name + '\'' + ", image='" + image + '\'' + '}';

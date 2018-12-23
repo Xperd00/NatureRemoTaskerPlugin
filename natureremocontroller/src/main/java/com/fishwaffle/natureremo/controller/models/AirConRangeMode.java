@@ -4,9 +4,12 @@
 
 package com.fishwaffle.natureremo.controller.models;
 
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class AirConRangeMode {
+public class AirConRangeMode  implements Serializable {
     /**温度*/
     public String[] temp;
     /**風量*/
@@ -14,6 +17,7 @@ public class AirConRangeMode {
     /**風向き*/
     public String[] dir;
 
+    @NonNull
     @Override
     public String toString() {
         return "AirConRangeMode{" +

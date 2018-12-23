@@ -4,7 +4,11 @@
 
 package com.fishwaffle.natureremo.controller.models;
 
-public class AirConParams {
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class AirConParams implements Serializable {
     /**
      * 温度
      * 指定可能な範囲はAirConRangeMode参照
@@ -39,6 +43,7 @@ public class AirConParams {
     /** 更新日時 */
     public String updated_at;
 
+    @NonNull
     @Override
     public String toString() {
         return "AirConParams{" + "temp='" + temp + '\'' + ", mode='" + mode + '\'' + ", vol='" + vol + '\'' + ", dir='" + dir + '\'' + ", button='" + button + '\'' + ", updated_at='" + updated_at + '\'' + '}';

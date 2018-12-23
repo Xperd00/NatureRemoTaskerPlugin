@@ -18,26 +18,23 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.fishwaffle.natureremo.controller.Util.*;
+import static com.fishwaffle.natureremo.controller.Util.join;
 
 
 public class NatureRemo {
-    /**
-     * 下記でアクセストークンを取得して設定する
-     * https://home.nature.global/
-     */
-    static final String TOKEN = "";
+
 
     /**
      * Fetch the authenticated user’s information.
      * 認証されたユーザーの情報を取得します。
      * @return ユーザーの情報
      */
-    public static User Users_Me_Get() {
-        return Get("https://api.nature.global/1/users/me", User.class);
+    public static User Users_Me_Get(String token) {
+        return Get(token, "https://api.nature.global/1/users/me", User.class);
     }
 
     /**
@@ -46,8 +43,8 @@ public class NatureRemo {
      * @param nickname ユーザー名
      * @return 更新後のユーザーの情報
      */
-    public static User Users_Me_POST(String nickname) {
-        return Post("https://api.nature.global/1/users/me", User.class, "nickname=" + nickname);
+    public static User Users_Me_POST(String token, String nickname) {
+        return Post(token, "https://api.nature.global/1/users/me", User.class, "nickname=" + nickname);
     }
 
     /**
@@ -56,8 +53,8 @@ public class NatureRemo {
      * @param message JSON serialized object describing infrared signals. Includes "data", “freq” and “format” keys.
      * @return
      */
-    public static ApplianceModelAndParam Detectappliance_POST(String message ) {
-        return Post("https://api.nature.global/1/users/me", ApplianceModelAndParam.class, "message =" + message );
+    public static ApplianceModelAndParam Detectappliance_POST(String token, String message) {
+        return Post(token, "https://api.nature.global/1/users/me", ApplianceModelAndParam.class, "message =" + message);
     }
 
     /**
@@ -65,8 +62,8 @@ public class NatureRemo {
      * ユーザーがアクセスできるRemoデバイスのリストを取得します。
      * @return デバイスリスト
      */
-    public static Device[] Devices_Get() {
-        return Get("https://api.nature.global/1/devices", Device[].class);
+    public static Device[] Devices_Get(String token) {
+        return Get(token, "https://api.nature.global/1/devices", Device[].class);
     }
 
     /**
@@ -74,8 +71,8 @@ public class NatureRemo {
      * アプライアンスのリストを取得します。
      * @return アプライアンスリスト
      */
-    public static Appliance[] Appliances_Get() {
-        return Get("https://api.nature.global/1/appliances", Appliance[].class);
+    public static Appliance[] Appliances_Get(String token) {
+        return Get(token, "https://api.nature.global/1/appliances", Appliance[].class);
     }
 
 
@@ -86,8 +83,8 @@ public class NatureRemo {
      * @param appliances List of all appliances’ IDs comma separated
      *                   アプライアンスIDをカンマ区切りで指定
      */
-    public static void Appliance_Orders_POST(String appliances) {
-         Post("https://api.nature.global/1/appliance_orders", Object.class, "appliances=" + appliances);
+    public static void Appliance_Orders_POST(String token, String appliances) {
+        Post(token, "https://api.nature.global/1/appliance_orders", Object.class, "appliances=" + appliances);
     }
 
     /**
@@ -99,24 +96,23 @@ public class NatureRemo {
      * @param image    アプリのメイン画面に表示されるアイコン
      * @return 新しいアプライアンス
      */
-    public static Appliance Appliances_Post(String nickname, String model, String device, ApplianceImage image) {
+    public static Appliance Appliances_Post(String token, String nickname, String model, String device, ApplianceImage image) {
         final Set<CharSequence> query = new HashSet<>();
         query.add("nickname=" + nickname);
         if (model != null) query.add("model=" + model);
         query.add("device=" + device);
         query.add("image=" + image.toString());
 
-        return Post("https://api.nature.global/1/appliances", Appliance.class, join("&", query));
+        return Post(token, "https://api.nature.global/1/appliances", Appliance.class, join("&", query));
     }
 
     /**
      * Delete appliance.
      * アプライアンスを削除します。
      * @param appliance アプライアンスID
-     * @return 更新後のアプライアンス
      */
-    public static void Appliances_Appliance_Delete_Post(String appliance) {
-         Post("https://api.nature.global/1/appliances/" + appliance + "/delete", Object.class, null);
+    public static void Appliances_Appliance_Delete_Post(String token, String appliance) {
+        Post(token, "https://api.nature.global/1/appliances/" + appliance + "/delete", Object.class, null);
     }
 
     /**
@@ -127,12 +123,12 @@ public class NatureRemo {
      * @param nickname  アプライアンス名
      * @return 更新後のアプライアンス
      */
-    public static Appliance Appliances_Appliance_Post(String appliance, ApplianceImage image, String nickname) {
+    public static Appliance Appliances_Appliance_Post(String token, String appliance, ApplianceImage image, String nickname) {
         final Set<CharSequence> query = new HashSet<>();
         query.add("nickname=" + nickname);
         query.add("image=" + image.toString());
 
-        return Post("https://api.nature.global/1/appliances/" + appliance, Appliance.class, join("&", query));
+        return Post(token, "https://api.nature.global/1/appliances/" + appliance, Appliance.class, join("&", query));
     }
 
     /**
@@ -157,7 +153,7 @@ public class NatureRemo {
      *                       OFF:power-off
      * @return 更新した設定
      */
-    public static AirConParams Appliances_Appliance_AirConSettings_Post(String appliance, String temperature, String operation_mode, String air_volume, String air_direction, String button) {
+    public static AirConParams Appliances_Appliance_AirConSettings_Post(String token, String appliance, String temperature, String operation_mode, String air_volume, String air_direction, String button) {
         final Set<CharSequence> query = new HashSet<>();
         if (temperature != null) query.add("temperature=" + temperature);
         if (operation_mode != null) query.add("operation_mode=" + operation_mode);
@@ -165,7 +161,7 @@ public class NatureRemo {
         if (air_direction != null) query.add("air_direction=" + air_direction);
         if (button != null) query.add("button=" + button);
 
-        return Post("https://api.nature.global/1/appliances/" + appliance + "/aircon_settings", AirConParams.class, join("&", query));
+        return Post(token, "https://api.nature.global/1/appliances/" + appliance + "/aircon_settings", AirConParams.class, join("&", query));
     }
 
 
@@ -175,8 +171,8 @@ public class NatureRemo {
      * @param appliance アプライアンスID
      * @return シグナルリスト
      */
-    public static Signal[] Appliances_Appliance_Signals_Get(String appliance) {
-        return Get("https://api.nature.global/1/appliances/" + appliance + "/signals", Signal[].class);
+    public static Signal[] Appliances_Appliance_Signals_Get(String token, String appliance) {
+        return Get(token, "https://api.nature.global/1/appliances/" + appliance + "/signals", Signal[].class);
     }
 
 
@@ -190,12 +186,12 @@ public class NatureRemo {
      * @param name      シグナル名
      * @return 作成したシグナル
      */
-    public static Signal Appliances_Appliance_Signals_POST(String appliance, String message, SignalImage image, String name) {
+    public static Signal Appliances_Appliance_Signals_POST(String token, String appliance, String message, SignalImage image, String name) {
         final Set<CharSequence> query = new HashSet<>();
         query.add("message=" + message);
         query.add("image=" + image.toString());
         query.add("name=" + name);
-        return Post("https://api.nature.global/1/appliances/" + appliance + "/signals", Signal.class, join("&", query));
+        return Post(token, "https://api.nature.global/1/appliances/" + appliance + "/signals", Signal.class, join("&", query));
     }
 
     /**
@@ -206,8 +202,8 @@ public class NatureRemo {
      * @param signals   List of all signals’ IDs comma separated
      *                  シグナルIDをカンマ区切りで指定
      */
-    public static void Appliances_Appliance_Signals_Orders_POST(String appliance, String signals) {
-         Post("https://api.nature.global/1/appliances/" + appliance + "/signal_orders", Object.class, "signals=" + signals);
+    public static void Appliances_Appliance_Signals_Orders_POST(String token, String appliance, String signals) {
+        Post(token, "https://api.nature.global/1/appliances/" + appliance + "/signal_orders", Object.class, "signals=" + signals);
     }
 
     /**
@@ -218,12 +214,12 @@ public class NatureRemo {
      * @param name   シグナル名
      * @return 更新後のシグナル
      */
-    public static Signal Signals_Signal_Post(String signal, SignalImage image, String name) {
+    public static Signal Signals_Signal_Post(String token, String signal, SignalImage image, String name) {
         final Set<CharSequence> query = new HashSet<>();
         query.add("image=" + image.toString());
         query.add("name=" + name);
 
-        return Post("https://api.nature.global/1/signals/" + signal, Signal.class, join("&", query));
+        return Post(token, "https://api.nature.global/1/signals/" + signal, Signal.class, join("&", query));
     }
 
     /**
@@ -231,8 +227,8 @@ public class NatureRemo {
      * 赤外線信号を送信します。
      * @param signal シグナルID
      */
-    public static void Signals_Signal_Send_Post(String signal) {
-         Post("https://api.nature.global/1/signals/" + signal + "/send", Object.class, null);
+    public static void Signals_Signal_Send_Post(String token, String signal) {
+        Post(token, "https://api.nature.global/1/signals/" + signal + "/send", Object.class, null);
     }
 
     /**
@@ -240,8 +236,8 @@ public class NatureRemo {
      * 赤外線信号を削除します。
      * @param signal シグナルID
      */
-    public static void Signals_Signal_Delete_Post(String signal) {
-         Post("https://api.nature.global/1/signals/" + signal + "/delete", Object.class, null);
+    public static void Signals_Signal_Delete_Post(String token, String signal) {
+        Post(token, "https://api.nature.global/1/signals/" + signal + "/delete", Object.class, null);
     }
 
     /**
@@ -251,8 +247,8 @@ public class NatureRemo {
      * @param name   デバイス名
      * @return 更新後のデバイス情報
      */
-    public static Device Devices_Device_Post(String device, String name) {
-        return Post("https://api.nature.global/1/devices/" + device, Device.class, "name=" + name);
+    public static Device Devices_Device_Post(String token, String device, String name) {
+        return Post(token, "https://api.nature.global/1/devices/" + device, Device.class, "name=" + name);
     }
 
     /**
@@ -260,8 +256,8 @@ public class NatureRemo {
      * デバイスの削除
      * @param device デバイスID
      */
-    public static void Devices_Device_Delete_Post(String device) {
-         Post("https://api.nature.global/1/devices/" + device + "/delete", Object.class, null);
+    public static void Devices_Device_Delete_Post(String token, String device) {
+        Post(token, "https://api.nature.global/1/devices/" + device + "/delete", Object.class, null);
     }
 
     /**
@@ -271,8 +267,8 @@ public class NatureRemo {
      * @param offset 温度オフセット
      * @return 更新後のデバイス情報
      */
-    public static Device Devices_Device_HumidityOffset_Post(String device, int offset) {
-        return Post("https://api.nature.global/1/devices/" + device + "/humidity_offset", Device.class, "offset=" + offset);
+    public static Device Devices_Device_HumidityOffset_Post(String token, String device, int offset) {
+        return Post(token, "https://api.nature.global/1/devices/" + device + "/humidity_offset", Device.class, "offset=" + offset);
     }
 
     /**
@@ -282,23 +278,23 @@ public class NatureRemo {
      * @param offset 湿度オフセット
      * @return 更新後のデバイス情報
      */
-    public static Device Devices_Device_TemperatureOffset_Post(String device, int offset) {
-        return Post("https://api.nature.global/1/devices/" + device + "/temperature_offset", Device.class, "offset=" + offset);
+    public static Device Devices_Device_TemperatureOffset_Post(String token, String device, int offset) {
+        return Post(token, "https://api.nature.global/1/devices/" + device + "/temperature_offset", Device.class, "offset=" + offset);
     }
 
-    private static <T> T Get(String url, Class<T> dataClass) {
+    private static <T> T Get(String token, String url, Class<T> dataClass) {
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("accept", "application/json");
-            conn.setRequestProperty("Authorization", "Bearer " + TOKEN);
+            conn.setRequestProperty("Authorization", "Bearer " + token);
             conn.connect();
             final int statusCode = conn.getResponseCode();
 
             if (statusCode == HttpURLConnection.HTTP_OK) {
                 StringBuilder result = new StringBuilder();
                 //responseの読み込み
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"))) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
                     String line;
                     while ((line = br.readLine()) != null) {
                         result.append(line);
@@ -314,13 +310,13 @@ public class NatureRemo {
         return null;
     }
 
-    private static <T> T Post(String url, Class<T> dataClass, String params) {
+    private static <T> T Post(String token, String url, Class<T> dataClass, String params) {
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("accept", "application/json");
             conn.addRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-            conn.setRequestProperty("Authorization", "Bearer " + TOKEN);
+            conn.setRequestProperty("Authorization", "Bearer " + token);
             conn.setDoInput(true);
             if (params != null) {
                 conn.setDoOutput(true);
@@ -336,7 +332,7 @@ public class NatureRemo {
             if (statusCode == HttpURLConnection.HTTP_OK || statusCode == HttpURLConnection.HTTP_CREATED) {
                 StringBuilder result = new StringBuilder();
                 //responseの読み込み
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"))) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
                     String line;
                     while ((line = br.readLine()) != null) {
                         result.append(line);

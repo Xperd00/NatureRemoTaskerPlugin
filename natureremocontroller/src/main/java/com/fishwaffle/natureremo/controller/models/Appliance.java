@@ -4,15 +4,18 @@
 
 package com.fishwaffle.natureremo.controller.models;
 
+import android.support.annotation.NonNull;
+
 import com.fishwaffle.natureremo.controller.ApplianceImage;
 import com.fishwaffle.natureremo.controller.NatureRemo;
 import com.fishwaffle.natureremo.controller.SignalImage;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-import static com.fishwaffle.natureremo.controller.Util.*;
+import static com.fishwaffle.natureremo.controller.Util.requireNonNull;
 
-public class Appliance {
+public class Appliance implements Serializable {
     /** アプライアンスID */
     public String id;
     /** デバイス */
@@ -42,8 +45,8 @@ public class Appliance {
      * シグナル取得
      * @return シグナルリスト
      */
-    public Signal[] GetSignals() {
-        return NatureRemo.Appliances_Appliance_Signals_Get(id);
+    public Signal[] GetSignals(String token) {
+        return NatureRemo.Appliances_Appliance_Signals_Get(token, id);
     }
 
     /**
@@ -52,19 +55,19 @@ public class Appliance {
      * @param nickname アプライアンス名
      * @return 更新後のアプライアンス
      */
-    public Appliance Update(ApplianceImage image, String nickname) {
-        return NatureRemo.Appliances_Appliance_Post(id, requireNonNull(image, ApplianceImage.valueOf(this.image)), requireNonNull(nickname, this.nickname));
+    public Appliance Update(String token, ApplianceImage image, String nickname) {
+        return NatureRemo.Appliances_Appliance_Post(token, id, requireNonNull(image, ApplianceImage.valueOf(this.image)), requireNonNull(nickname, this.nickname));
     }
 
     /**
      * アプライアンスを削除する
      */
-    public void Delete() {
-        NatureRemo.Appliances_Appliance_Delete_Post(id);
+    public void Delete(String token) {
+        NatureRemo.Appliances_Appliance_Delete_Post(token, id);
     }
 
-    public Signal AddSignal(String message, SignalImage image, String name) {
-        return NatureRemo.Appliances_Appliance_Signals_POST(id, message, image, name);
+    public Signal AddSignal(String token, String message, SignalImage image, String name) {
+        return NatureRemo.Appliances_Appliance_Signals_POST(token, id, message, image, name);
     }
 
     /**
@@ -88,10 +91,11 @@ public class Appliance {
      *                       OFF:power-off
      * @return 更新した設定
      */
-    public AirConParams AirconSettings(String temperature, String operation_mode, String air_volume, String air_direction, String button) {
-        return NatureRemo.Appliances_Appliance_AirConSettings_Post(id, requireNonNull(temperature, settings.temp), requireNonNull(operation_mode, settings.mode), requireNonNull(air_volume, settings.vol), requireNonNull(air_direction, settings.dir), requireNonNull(button, settings.button));
+    public AirConParams AirconSettings(String token, String temperature, String operation_mode, String air_volume, String air_direction, String button) {
+        return NatureRemo.Appliances_Appliance_AirConSettings_Post(token, id, requireNonNull(temperature, settings.temp), requireNonNull(operation_mode, settings.mode), requireNonNull(air_volume, settings.vol), requireNonNull(air_direction, settings.dir), requireNonNull(button, settings.button));
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Appliance{" + "id='" + id + '\'' + ", device=" + device + ", model=" + model + ", type='" + type + '\'' + ", nickname='" + nickname + '\'' + ", image='" + image + '\'' + ", settings=" + settings + ", aircon=" + aircon + ", signals=" + Arrays.toString(signals) + ", tv=" + tv + '}';

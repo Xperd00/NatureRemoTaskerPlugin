@@ -4,9 +4,12 @@
 
 package com.fishwaffle.natureremo.controller.models;
 
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class AirCon {
+public class AirCon implements Serializable {
     /** 指定可能は値範囲の情報 */
     public Range range;
     /**
@@ -16,6 +19,7 @@ public class AirCon {
      */
     public String tempUnit;
 
+    @NonNull
     @Override
     public String toString() {
         return "AirCon{" + "range=" + range + ", tempUnit='" + tempUnit + '\'' + '}';
@@ -26,13 +30,14 @@ public class AirCon {
         public Modes modes;
         public String[] fixedButtons;
 
+        @NonNull
         @Override
         public String toString() {
             return "Range{" + "modes=" + modes + ", fixedButtons=" + Arrays.toString(fixedButtons) + '}';
         }
     }
 
-    public static class Modes {
+    public static class Modes implements Serializable {
         /** 冷房 */
         public AirConRangeMode cool;
         /** 暖房 */
@@ -44,6 +49,7 @@ public class AirCon {
         /** オート */
         public AirConRangeMode auto;
 
+        @NonNull
         @Override
         public String toString() {
             return "Modes{" + "cool=" + cool + ", warm=" + warm + ", dry=" + dry + ", blow=" + blow + ", auto=" + auto + '}';
