@@ -29,7 +29,7 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!SettingFragmentArgs.fromBundle(arguments).edit){
+        if (!SettingFragmentArgs.fromBundle(arguments!!).edit) {
             context?.let {
                 tokenEditText.setText(getToken(it))
             }
@@ -38,14 +38,11 @@ class SettingFragment : Fragment() {
         generateTokenButton.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://home.nature.global")))
         }
-        saveButton.setOnClickListener {view ->
-            context?.let { context ->
-                saveToken(context, tokenEditText.text.toString())
-                if (SettingFragmentArgs.fromBundle(arguments).edit) {
-                    view.findNavController().navigate(SettingFragmentDirections.toProgressFragment())
-                } else {
-                    Toast.makeText(context,getString(R.string.PreferenceSave),Toast.LENGTH_SHORT).show()
-                }
+        saveButton.setOnClickListener { view ->
+            saveToken(context!!, tokenEditText.text.toString())
+            Toast.makeText(context!!, getString(R.string.PreferenceSave), Toast.LENGTH_SHORT).show()
+            if (SettingFragmentArgs.fromBundle(arguments!!).edit) {
+                view.findNavController().navigate(SettingFragmentDirections.toProgressFragment())
             }
         }
     }

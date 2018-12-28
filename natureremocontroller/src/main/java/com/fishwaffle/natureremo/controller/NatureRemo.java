@@ -4,6 +4,7 @@
 
 package com.fishwaffle.natureremo.controller;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fishwaffle.natureremo.controller.models.AirConParams;
 import com.fishwaffle.natureremo.controller.models.Appliance;
@@ -22,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.fishwaffle.natureremo.controller.Util.join;
+import static android.text.TextUtils.join;
 
 
 public class NatureRemo {

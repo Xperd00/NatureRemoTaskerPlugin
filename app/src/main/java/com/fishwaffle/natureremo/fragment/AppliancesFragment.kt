@@ -33,7 +33,7 @@ class AppliancesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewManager = LinearLayoutManager(context)
-        viewAdapter = ApplianceAdapter(AppliancesFragmentArgs.fromBundle(arguments).appliances)
+        viewAdapter = ApplianceAdapter(AppliancesFragmentArgs.fromBundle(arguments!!).appliances)
         applianceRecycler.apply {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
@@ -63,8 +63,10 @@ class AppliancesFragment : Fragment() {
                     "AC" -> {
                         Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toAirConditionerFragment(appliance))
                     }
-                    "TV" -> {
-                    }
+                    //todo TVのプリセットを叩くAPIが公開されるまでコメントアウト
+//                    "TV" -> {
+//
+//                    }
                     else -> {
                         Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toInfraRedFragment(appliance))
                     }

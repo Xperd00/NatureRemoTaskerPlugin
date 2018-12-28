@@ -31,7 +31,7 @@ class InfraRedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args = InfraRedFragmentArgs.fromBundle(arguments)
+        val args = InfraRedFragmentArgs.fromBundle(arguments!!)
         val applianceName = args.appliance.nickname
         viewManager = LinearLayoutManager(context)
         viewAdapter = InfraRedFragment.SignalAdapter(args.appliance.signals.toList(), object : SignalAdapter.OnItemClickListener {

@@ -10,7 +10,6 @@
     android:layout_height="match_parent"
     tools:context="com.fishwaffle.natureremo.fragment.SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"

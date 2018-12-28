@@ -6,10 +6,10 @@ package com.fishwaffle.natureremo.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.fishwaffle.natureremo.Appliances
 import com.fishwaffle.natureremo.R
@@ -37,12 +37,12 @@ class ProgressFragment : Fragment() {
              }
          }
 
-        val token = context?.let { getToken(it) } ?: ""
+        val token = getToken(context!!)
         if (token.isBlank()) {
             //トークン未設定の場合
             //設定画面へ
             progressBar.findNavController().navigate(ProgressFragmentDirections.toSettingFragment().apply {
-                setEdit(true)
+                edit = true
             })
         } else {
             //トークン設定済みの場合
@@ -54,7 +54,7 @@ class ProgressFragment : Fragment() {
                         addAll(appliances)
                     }))
                 } else {
-                    Log.d("a", "エラー")
+                    Toast.makeText(context!!,"エラー",Toast.LENGTH_SHORT).show()
                 }
             }
         }

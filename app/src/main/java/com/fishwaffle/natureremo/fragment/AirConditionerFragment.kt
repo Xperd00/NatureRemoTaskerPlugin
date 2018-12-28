@@ -38,7 +38,7 @@ class AirConditionerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val appliance = AirConditionerFragmentArgs.fromBundle(arguments).appliance
+        val appliance = AirConditionerFragmentArgs.fromBundle(arguments!!).appliance
         //選択可能範囲を取得
         val modes = appliance.aircon.range.modes
 

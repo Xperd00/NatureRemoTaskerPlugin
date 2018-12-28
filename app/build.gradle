@@ -37,9 +37,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':natureremocontroller')
-    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha08"
-    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha08"
-    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha08"
-    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0-alpha08"
+    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha09"
+    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha09"
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha09"
+    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0-alpha09"
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 }

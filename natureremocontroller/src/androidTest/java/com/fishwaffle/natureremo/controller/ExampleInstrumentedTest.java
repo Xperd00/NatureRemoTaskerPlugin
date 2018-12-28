@@ -8,12 +8,10 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.fishwaffle.natureremo.controller.models.Appliance;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -31,10 +29,5 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.fishwaffle.natureremo.controller.test", appContext.getPackageName());
     }
-    @Test
-    public void Appliances_Post() {
-        final Appliance data = NatureRemo.Appliances_Post("Test", null, "3faaa7c5-7869-4235-87df-a6432a22f595", ApplianceImage.ico_ac_0);
-        System.out.println(data);
-        assertNotNull(data);
-    }
+
 }
