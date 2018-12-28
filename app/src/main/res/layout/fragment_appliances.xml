@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) 2018 FishWaffle.
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fishwaffle.natureremo.fragment.AppliancesFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/applianceRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:itemCount="8"
+        tools:listitem="@layout/recycler_view_item_appliance" />
+</FrameLayout>

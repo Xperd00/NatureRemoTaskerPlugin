@@ -1,0 +1,123 @@
+<!--
+  ~ Copyright (c) 2018 FishWaffle.
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.fishwaffle.natureremo.fragment.AirConditionerFragment">
+
+    <TextView
+        android:id="@+id/textViewPower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/Power"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switchPower"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:checked="true"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewPower"
+        app:layout_constraintTop_toTopOf="@+id/textViewPower"
+        tools:checked="true" />
+
+    <TextView
+        android:id="@+id/textViewModes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/Modes"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewPower"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPower" />
+
+    <Spinner
+        android:id="@+id/spinnerModes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/switchPower"
+        app:layout_constraintStart_toStartOf="@+id/switchPower"
+        app:layout_constraintTop_toTopOf="@+id/textViewModes" />
+
+    <TextView
+        android:id="@+id/textViewTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/Temp"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewPower"
+        app:layout_constraintTop_toBottomOf="@+id/textViewModes" />
+
+    <Spinner
+        android:id="@+id/spinnerTemp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/switchPower"
+        app:layout_constraintStart_toStartOf="@+id/switchPower"
+        app:layout_constraintTop_toTopOf="@+id/textViewTemp" />
+
+    <TextView
+        android:id="@+id/textViewVol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/Vol"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewPower"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTemp" />
+
+    <Spinner
+        android:id="@+id/spinnerVol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/switchPower"
+        app:layout_constraintStart_toStartOf="@+id/switchPower"
+        app:layout_constraintTop_toTopOf="@+id/textViewVol" />
+
+    <TextView
+        android:id="@+id/textViewDir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/Dir"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewPower"
+        app:layout_constraintTop_toBottomOf="@+id/textViewVol" />
+
+    <Spinner
+        android:id="@+id/spinnerDir"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/switchPower"
+        app:layout_constraintStart_toStartOf="@+id/switchPower"
+        app:layout_constraintTop_toTopOf="@+id/textViewDir" />
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@android:string/ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDir" />
+
+</android.support.constraint.ConstraintLayout>
