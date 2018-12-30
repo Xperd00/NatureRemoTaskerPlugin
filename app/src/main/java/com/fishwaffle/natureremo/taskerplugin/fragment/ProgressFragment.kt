@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FishWaffle.
  */
 
-package com.fishwaffle.natureremo.fragment
+package com.fishwaffle.natureremo.taskerplugin.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,10 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.fishwaffle.natureremo.Appliances
-import com.fishwaffle.natureremo.R
 import com.fishwaffle.natureremo.controller.NatureRemo
-import com.fishwaffle.natureremo.getToken
+import com.fishwaffle.natureremo.taskerplugin.Appliances
+import com.fishwaffle.natureremo.taskerplugin.R
+import com.fishwaffle.natureremo.taskerplugin.getToken
 import kotlinx.android.synthetic.main.fragment_progress.*
 import kotlin.concurrent.thread
 

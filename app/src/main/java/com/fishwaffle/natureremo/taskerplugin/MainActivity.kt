@@ -1,4 +1,8 @@
-package com.fishwaffle.natureremo
+/*
+ * Copyright (c) 2018 FishWaffle.
+ */
+
+package com.fishwaffle.natureremo.taskerplugin
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

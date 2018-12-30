@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fishwaffle.natureremo.fragment.SettingFragment">
+    tools:context="com.fishwaffle.natureremo.taskerplugin.fragment.SettingFragment">
 
     <TextView
         android:id="@+id/textView"

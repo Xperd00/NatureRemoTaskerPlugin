@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FishWaffle.
  */
 
-package com.fishwaffle.natureremo.fragment
+package com.fishwaffle.natureremo.taskerplugin.fragment
 
 
 import android.content.Intent
@@ -14,9 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.fishwaffle.natureremo.R
-import com.fishwaffle.natureremo.getToken
-import com.fishwaffle.natureremo.saveToken
+import com.fishwaffle.natureremo.taskerplugin.R
+import com.fishwaffle.natureremo.taskerplugin.getToken
+import com.fishwaffle.natureremo.taskerplugin.saveToken
 import kotlinx.android.synthetic.main.fragment_setting.*
 
 
@@ -38,11 +38,11 @@ class SettingFragment : Fragment() {
         generateTokenButton.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://home.nature.global")))
         }
-        saveButton.setOnClickListener { view ->
+        saveButton.setOnClickListener {
             saveToken(context!!, tokenEditText.text.toString())
             Toast.makeText(context!!, getString(R.string.PreferenceSave), Toast.LENGTH_SHORT).show()
             if (SettingFragmentArgs.fromBundle(arguments!!).edit) {
-                view.findNavController().navigate(SettingFragmentDirections.toProgressFragment())
+                it.findNavController().navigate(SettingFragmentDirections.toProgressFragment())
             }
         }
     }

@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FishWaffle.
  */
 
-package com.fishwaffle.natureremo
+package com.fishwaffle.natureremo.taskerplugin
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -16,7 +16,10 @@ class MyReceiver : BroadcastReceiver() {
         if (intent.action.equals(FIRE_SETTING, ignoreCase = true)) {
             val bundle = intent.getBundleExtra(EXTRA_BUNDLE)
 
-            val type = Type.valueOf(bundle.getString(BUNDLE_TYPE))
+            val type = bundle.getString(BUNDLE_TYPE).let {
+                if (it != null) Type.valueOf(it) else null
+            }
+
             when (type) {
                 Type.SignalSend -> {
                     val signal = bundle.getString(BUNDLE_SIGNAL_ID)

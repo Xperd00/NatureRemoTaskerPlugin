@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/progressFragment"
-        android:name="com.fishwaffle.natureremo.fragment.ProgressFragment"
+        android:name="com.fishwaffle.natureremo.taskerplugin.fragment.ProgressFragment"
         android:label="fragment_progress"
         tools:layout="@layout/fragment_progress" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/appliancesFragment"
-        android:name="com.fishwaffle.natureremo.fragment.AppliancesFragment"
+        android:name="com.fishwaffle.natureremo.taskerplugin.fragment.AppliancesFragment"
         android:label="fragment_appliances"
         tools:layout="@layout/fragment_appliances" >
         <action
@@ -42,11 +42,11 @@
             app:launchSingleTop="true" />
         <argument
             android:name="appliances"
-            app:argType="com.fishwaffle.natureremo.Appliances" />
+            app:argType="com.fishwaffle.natureremo.taskerplugin.Appliances" />
     </fragment>
     <fragment
         android:id="@+id/infraRedFragment"
-        android:name="com.fishwaffle.natureremo.fragment.InfraRedFragment"
+        android:name="com.fishwaffle.natureremo.taskerplugin.fragment.InfraRedFragment"
         android:label="fragment_infra_red"
         tools:layout="@layout/fragment_infra_red" >
         <argument
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/airConditionerFragment"
-        android:name="com.fishwaffle.natureremo.fragment.AirConditionerFragment"
+        android:name="com.fishwaffle.natureremo.taskerplugin.fragment.AirConditionerFragment"
         android:label="fragment_air_conditioner"
         tools:layout="@layout/fragment_air_conditioner" >
         <argument
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.fishwaffle.natureremo.fragment.SettingFragment"
+        android:name="com.fishwaffle.natureremo.taskerplugin.fragment.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
         <action

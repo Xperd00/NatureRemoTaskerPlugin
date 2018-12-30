@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FishWaffle.
  */
 
-package com.fishwaffle.natureremo.fragment
+package com.fishwaffle.natureremo.taskerplugin.fragment
 
 
 import android.app.Activity
@@ -15,10 +15,10 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import com.fishwaffle.natureremo.R
 import com.fishwaffle.natureremo.controller.models.AirConRangeMode
-import com.fishwaffle.natureremo.createTaskerDataAirConPowerOff
-import com.fishwaffle.natureremo.createTaskerDataAirConSettings
+import com.fishwaffle.natureremo.taskerplugin.R
+import com.fishwaffle.natureremo.taskerplugin.createTaskerDataAirConPowerOff
+import com.fishwaffle.natureremo.taskerplugin.createTaskerDataAirConSettings
 import kotlinx.android.synthetic.main.fragment_air_conditioner.*
 
 
@@ -51,10 +51,10 @@ class AirConditionerFragment : Fragment() {
                     if (auto != null) "auto" else null)
         }
 
-        mModesArray = ArrayAdapter(context, R.layout.spinner_item, modesList)
-        mTempArray = ArrayAdapter(context, R.layout.spinner_item)
-        mVolArray = ArrayAdapter(context, R.layout.spinner_item)
-        mDirArray = ArrayAdapter(context, R.layout.spinner_item)
+        mModesArray = ArrayAdapter(context!!, R.layout.spinner_item, modesList)
+        mTempArray = ArrayAdapter(context!!, R.layout.spinner_item)
+        mVolArray = ArrayAdapter(context!!, R.layout.spinner_item)
+        mDirArray = ArrayAdapter(context!!, R.layout.spinner_item)
         spinnerModes.adapter = mModesArray
         spinnerTemp.adapter = mTempArray
         spinnerVol.adapter = mVolArray
@@ -119,7 +119,7 @@ class AirConditionerFragment : Fragment() {
 
     }
 
-    private fun ArrayAdapter<String>.isBlank(): Boolean = !(this.count == 1 && this.getItem(0).isBlank())
+    private fun ArrayAdapter<String>.isBlank(): Boolean = !(this.count == 1 && this.getItem(0).isNullOrBlank())
 
     private fun setArray(mode: AirConRangeMode) {
         clearArray()

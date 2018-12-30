@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="300dp"
-    tools:context="com.fishwaffle.natureremo.fragment.ProgressFragment"
+    tools:context="com.fishwaffle.natureremo.taskerplugin.fragment.ProgressFragment"
     tools:layout_editor_absoluteY="81dp">
 
 

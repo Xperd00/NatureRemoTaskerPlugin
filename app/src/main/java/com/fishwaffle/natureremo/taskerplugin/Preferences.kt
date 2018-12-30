@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FishWaffle.
  */
 
-package com.fishwaffle.natureremo
+package com.fishwaffle.natureremo.taskerplugin
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -17,5 +17,5 @@ fun saveToken(context: Context, token: String) {
 }
 
 fun getToken(context: Context): String {
-    return context.getSharedPreferences("natureremo", MODE_PRIVATE).getString(TOKEN_KEY, "")
+    return context.getSharedPreferences("natureremo", MODE_PRIVATE).getString(TOKEN_KEY, "")!!
 }

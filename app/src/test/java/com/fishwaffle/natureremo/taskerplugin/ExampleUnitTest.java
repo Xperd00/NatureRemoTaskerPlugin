@@ -1,4 +1,8 @@
-package com.fishwaffle.natureremo;
+/*
+ * Copyright (c) 2018 FishWaffle.
+ */
+
+package com.fishwaffle.natureremo.taskerplugin;
 
 import org.junit.Test;
 

@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FishWaffle.
  */
 
-package com.fishwaffle.natureremo.fragment
+package com.fishwaffle.natureremo.taskerplugin.fragment
 
 
 import android.app.Activity
@@ -16,9 +16,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.fishwaffle.natureremo.R
 import com.fishwaffle.natureremo.controller.models.Signal
-import com.fishwaffle.natureremo.createTaskerDataSignalSend
+import com.fishwaffle.natureremo.taskerplugin.R
+import com.fishwaffle.natureremo.taskerplugin.createTaskerDataSignalSend
 import kotlinx.android.synthetic.main.fragment_infra_red.*
 
 class InfraRedFragment : Fragment() {
@@ -34,10 +34,10 @@ class InfraRedFragment : Fragment() {
         val args = InfraRedFragmentArgs.fromBundle(arguments!!)
         val applianceName = args.appliance.nickname
         viewManager = LinearLayoutManager(context)
-        viewAdapter = InfraRedFragment.SignalAdapter(args.appliance.signals.toList(), object : SignalAdapter.OnItemClickListener {
+        viewAdapter = SignalAdapter(args.appliance.signals.toList(), object : SignalAdapter.OnItemClickListener {
             override fun onClick(signalName: String, id: String) {
                 val intent = createTaskerDataSignalSend(applianceName, signalName, id)
-                activity!!.setResult(Activity.RESULT_OK,intent)
+                activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             }
         })

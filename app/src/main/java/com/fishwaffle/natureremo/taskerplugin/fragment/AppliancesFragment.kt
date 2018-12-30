@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FishWaffle.
  */
 
-package com.fishwaffle.natureremo.fragment
+package com.fishwaffle.natureremo.taskerplugin.fragment
 
 
 import android.os.Bundle
@@ -16,8 +16,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.navigation.Navigation
-import com.fishwaffle.natureremo.R
 import com.fishwaffle.natureremo.controller.models.Appliance
+import com.fishwaffle.natureremo.taskerplugin.R
 import kotlinx.android.synthetic.main.fragment_appliances.*
 
 
