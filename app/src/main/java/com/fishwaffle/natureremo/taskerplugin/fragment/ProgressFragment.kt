@@ -47,7 +47,7 @@ class ProgressFragment : Fragment() {
         } else {
             //トークン設定済みの場合
             thread {
-                val appliances = NatureRemo.Appliances_Get(token)
+                val appliances = NatureRemo.appliancesGet(token)
                 if (appliances != null) {
                     //家電選択画面へ
                     progressBar.findNavController().navigate(ProgressFragmentDirections.toAppliancesFragment(Appliances().apply {

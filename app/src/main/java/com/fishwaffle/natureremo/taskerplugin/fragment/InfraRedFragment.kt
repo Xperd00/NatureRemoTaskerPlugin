@@ -34,9 +34,9 @@ class InfraRedFragment : Fragment() {
         val args = InfraRedFragmentArgs.fromBundle(arguments!!)
         val applianceName = args.appliance.nickname
         viewManager = LinearLayoutManager(context)
-        viewAdapter = SignalAdapter(args.appliance.signals.toList(), object : SignalAdapter.OnItemClickListener {
+        viewAdapter = SignalAdapter(args.appliance.signals!!.toList(), object : SignalAdapter.OnItemClickListener {
             override fun onClick(signalName: String, id: String) {
-                val intent = createTaskerDataSignalSend(applianceName, signalName, id)
+                val intent = createTaskerDataSignalSend(applianceName!!, signalName, id)
                 activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             }
@@ -68,7 +68,7 @@ class InfraRedFragment : Fragment() {
             val signal = myDadaist[position]
             holder.name.text = signal.name
             holder.linearLayout.setOnClickListener {
-                listener.onClick(signal.name, signal.id)
+                listener.onClick(signal.name!!, signal.id!!)
             }
         }
 

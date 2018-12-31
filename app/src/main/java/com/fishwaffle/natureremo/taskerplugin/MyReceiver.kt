@@ -24,13 +24,13 @@ class MyReceiver : BroadcastReceiver() {
                 Type.SignalSend -> {
                     val signal = bundle.getString(BUNDLE_SIGNAL_ID)
                     thread {
-                        NatureRemo.Signals_Signal_Send_Post(getToken(context), signal)
+                        NatureRemo.signalsSignalSendPost(getToken(context), signal)
                     }
                 }
                 Type.AirConPowerOff -> {
                     val appliancesId = bundle.getString(BUNDLE_APPLIANCE_ID)
                     thread {
-                        NatureRemo.Appliances_Appliance_AirConSettings_Post(getToken(context), appliancesId,
+                        NatureRemo.appliancesApplianceAirConSettingsPost(getToken(context), appliancesId,
                                 null, null, null, null,
                                 "power-off")
                     }
@@ -43,7 +43,7 @@ class MyReceiver : BroadcastReceiver() {
                     val direction = if (bundle.containsKey(BUNDLE_AIR_DIRECTION)) bundle.getString(BUNDLE_AIR_DIRECTION) else null
 
                     thread {
-                        NatureRemo.Appliances_Appliance_AirConSettings_Post(getToken(context), appliancesId,
+                        NatureRemo.appliancesApplianceAirConSettingsPost(getToken(context), appliancesId,
                                 temperature, mode, volume, direction,
                                 "")
                     }

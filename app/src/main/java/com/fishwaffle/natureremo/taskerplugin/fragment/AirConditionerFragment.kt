@@ -40,10 +40,10 @@ class AirConditionerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val appliance = AirConditionerFragmentArgs.fromBundle(arguments!!).appliance
         //選択可能範囲を取得
-        val modes = appliance.aircon.range.modes
+        val modes = appliance.aircon!!.range!!.modes
 
         //選択可能なモードのListを作成
-        val modesList = modes.run {
+        val modesList = modes!!.run {
             listOfNotNull(if (cool != null) "cool" else null,
                     if (warm != null) "warm" else null,
                     if (dry != null) "dry" else null,
@@ -68,19 +68,19 @@ class AirConditionerFragment : Fragment() {
                 val spinner = parent as Spinner
                 when (spinner.selectedItem) {
                     "auto" -> {
-                        setArray(modes.auto)
+                        setArray(modes.auto!!)
                     }
                     "cool" -> {
-                        setArray(modes.cool)
+                        setArray(modes.cool!!)
                     }
                     "dry" -> {
-                        setArray(modes.dry)
+                        setArray(modes.dry!!)
                     }
                     "warm" -> {
-                        setArray(modes.warm)
+                        setArray(modes.warm!!)
                     }
                     "blow" -> {
-                        setArray(modes.blow)
+                        setArray(modes.blow!!)
                     }
                 }
             }
@@ -105,13 +105,13 @@ class AirConditionerFragment : Fragment() {
 
         buttonOk.setOnClickListener {
             val intent = if (switchPower.isChecked) {
-                createTaskerDataAirConSettings(appliance.nickname, appliance.id,
+                createTaskerDataAirConSettings(appliance.nickname!!, appliance.id!!,
                         mode = spinnerModes.selectedItem as String,
                         temperature = spinnerTemp.selectedItem as String,
                         volume = spinnerVol.selectedItem as String,
                         direction = spinnerDir.selectedItem as String)
             } else {
-                createTaskerDataAirConPowerOff(appliance.nickname, appliance.id)
+                createTaskerDataAirConPowerOff(appliance.nickname!!, appliance.id!!)
             }
             activity!!.setResult(Activity.RESULT_OK, intent)
             activity!!.finish()
@@ -123,9 +123,9 @@ class AirConditionerFragment : Fragment() {
 
     private fun setArray(mode: AirConRangeMode) {
         clearArray()
-        mTempArray.addAll(mode.temp.toList())
-        mVolArray.addAll(mode.vol.toList())
-        mDirArray.addAll(mode.dir.toList())
+        mTempArray.addAll(mode.temp!!.toList())
+        mVolArray.addAll(mode.vol!!.toList())
+        mDirArray.addAll(mode.dir!!.toList())
         setSpinnerEnabled()
     }
 
