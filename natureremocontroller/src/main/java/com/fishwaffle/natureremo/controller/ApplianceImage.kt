@@ -1,27 +1,27 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller
 
-enum class ApplianceImage {
+enum class ApplianceImage(val value: String, val string: String) {
     /** エアコン  */
-    ico_ac_1,
+    AC_1("ico_ac_1", "エアコン"),
     /** 窓用エアコン  */
-    ico_ac_0,
+    AC_0("ico_ac_0", "窓用エアコン"),
     /** テレビ  */
-    ico_tv,
+    TV("ico_tv", "テレビ"),
     /** 電気  */
-    ico_light,
+    LIGHT("ico_light", "電気"),
     /** AV機器  */
-    ico_av,
+    AV("ico_av", "AV機器"),
     /** 送風  */
-    ico_fan,
+    FAN("ico_fan", "送風"),
     /** 掃除機  */
-    ico_robot,
+    ROBOT("ico_robot", "掃除機"),
     /** オーディオ  */
-    ico_audio,
+    AUDIO("ico_audio", "オーディオ"),
     /** カーテン  */
-    ico_curtain
+    CURTAIN("ico_curtain", "カーテン");
 }
 

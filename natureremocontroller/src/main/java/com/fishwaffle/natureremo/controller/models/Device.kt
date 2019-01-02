@@ -1,20 +1,35 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fishwaffle.natureremo.controller.NatureRemo
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
-import java.util.*
 
-class Device : DeviceCore(), Serializable {
-
-    /** ユーザー情報  */
-    var users: Array<Users>? = null
-    /** 最新イベント  */
-    var newest_events: NewestEvents? = null
+/**
+ * デバイス情報
+ * @param name デバイス名
+ * @param id デバイスID
+ * @param created_at 作成日時
+ * @param updated_at 更新日時
+ * @param mac_address Macアドレス
+ * @param serial_number シリアルナンバー
+ * @param firmware_version ファームウェアバージョン
+ * @param temperature_offset 温度校正値
+ * @param humidity_offset 湿度校正値
+ * @param users ユーザー情報
+ * @param newest_events 最新イベント
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class Device(var name: String?, var id: String?,
+                  var created_at: String?, var updated_at: String?,
+                  var mac_address: String?, var serial_number: String?, var firmware_version: String?,
+                  var temperature_offset: Int = 0, var humidity_offset: Int = 0,
+                  var users: List<User>?, var newest_events: NewestEvents?) : Serializable {
 
 
     fun updateName(token: String, name: String): Device? {
@@ -29,42 +44,13 @@ class Device : DeviceCore(), Serializable {
         return NatureRemo.devicesDeviceTemperatureOffsetPost(token, id!!, offset)
     }
 
-
-    override fun toString(): String {
-        return "Devices{" + "name='" + name + '\''.toString() + ", id='" + id + '\''.toString() + ", created_at='" + created_at + '\''.toString() + ", updated_at='" + updated_at + '\''.toString() + ", firmware_version='" + firmware_version + '\''.toString() + ", temperature_offset=" + temperature_offset + ", humidity_offset=" + humidity_offset + ", users=" + Arrays.toString(users) + ", newest_events=" + newest_events + '}'.toString()
-    }
-
-    /** ユーザー情報  */
-    class Users : Serializable {
-
-        /** ユーザーID  */
-        var id: String? = null
-        /** ユーザー名  */
-        var nickname: String? = null
-        /** スーパーユーザー  */
-        var superuser: Boolean = false
-
-        override fun toString(): String {
-            return "Users{" + "id='" + id + '\''.toString() + ", nickname='" + nickname + '\''.toString() + ", superuser=" + superuser + '}'.toString()
-        }
-
-    }
-
-
-    /** 最新イベント  */
-    class NewestEvents : Serializable {
-        /** 湿度  */
-        var hu: SensorValue? = null
-        /** 照度  */
-        var il: SensorValue? = null
-        /** 温度  */
-        var te: SensorValue? = null
-
-
-        override fun toString(): String {
-            return "NewestEvents{" + ", hu=" + hu + ", il=" + il + ", te=" + te + '}'.toString()
-        }
-    }
+    /** 最新イベント
+     * @param hu 湿度
+     * @param il 照度
+     * @param te 温度
+     */
+    @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+    data class NewestEvents(var hu: SensorValue?, var il: SensorValue?, var te: SensorValue?) : Serializable
 }
 
 

@@ -1,40 +1,35 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fishwaffle.natureremo.controller.ApplianceImage
 import com.fishwaffle.natureremo.controller.NatureRemo
 import com.fishwaffle.natureremo.controller.SignalImage
 import com.fishwaffle.natureremo.controller.Util.requireNonNull
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
-import java.util.*
 
-class Appliance : Serializable {
-    /** アプライアンスID  */
-    var id: String? = null
-    /** デバイス  */
-    var device: DeviceCore? = null
-    /** Model(プリセット情報)  */
-    var model: ApplianceModel? = null
-    /**
-     * AC:エアコンのプリセット利用
-     * TV:テレビのプリセット利用
-     * IR:その他
-     */
-    var type: String? = null
-    /** アプライアンス名  */
-    var nickname: String? = null
-    /** アイコン  */
-    var image: String? = null
-    /** エアコンの設定状態  */
-    var settings: AirConParams? = null
-    var aircon: AirCon? = null
-    /** シグナルリスト  */
-    var signals: Array<Signal>? = null
-    /** テレビリモコンの情報  */
-    var tv: Tv? = null
+/**
+ *家電情報
+ * @param id アプライアンスID
+ * @param device デバイス
+ * @param model Model(プリセット情報)
+ * @param type AC:エアコンのプリセット利用
+ *              TV:テレビのプリセット利用
+ *              IR:その他
+ * @param nickname アプライアンス名
+ * @param image アイコン
+ * @param settings エアコンの設定状態
+ * @param aircon エアコン情報
+ * @param signals シグナルリスト
+ * @param tv テレビリモコンの情報
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class Appliance(var id: String?, var device: Device?, var model: ApplianceModel?, var type: String?, var nickname: String? = null,
+                     var image: String?, var settings: AirConParams?, var aircon: AirCon?, var signals: List<Signal>?, var tv: Tv?) : Serializable {
 
 
     /**
@@ -91,9 +86,6 @@ class Appliance : Serializable {
         return NatureRemo.appliancesApplianceAirConSettingsPost(token, id!!, requireNonNull(temperature, settings!!.temp), requireNonNull(operation_mode, settings!!.mode), requireNonNull(air_volume, settings!!.vol), requireNonNull(air_direction, settings!!.dir), requireNonNull(button, settings!!.button))
     }
 
-    override fun toString(): String {
-        return "Appliance{" + "id='" + id + '\''.toString() + ", device=" + device + ", model=" + model + ", type='" + type + '\''.toString() + ", nickname='" + nickname + '\''.toString() + ", image='" + image + '\''.toString() + ", settings=" + settings + ", aircon=" + aircon + ", signals=" + Arrays.toString(signals) + ", tv=" + tv + '}'.toString()
-    }
 }
 
 

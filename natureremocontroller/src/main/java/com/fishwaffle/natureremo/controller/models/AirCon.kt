@@ -1,52 +1,37 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
-import java.util.*
 
-class AirCon : Serializable {
-    /** 指定可能は値範囲の情報  */
-    var range: Range? = null
+/**
+ * @param range 指定可能は値範囲の情報
+ * @param tempUnit 温度の単位
+ *                  c:摂氏
+ *                  f:華氏
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class AirCon(var range: Range?, var tempUnit: String?) : Serializable {
     /**
-     * 温度の単位
-     * c:摂氏
-     * f:華氏
+     * @param modes 各モード
+     * @param fixedButtons
      */
-    var tempUnit: String? = null
+    @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+    data class Range(var modes: Modes?, var fixedButtons: List<String>?) : Serializable
 
-    override fun toString(): String {
-        return "AirCon{" + "range=" + range + ", tempUnit='" + tempUnit + '\''.toString() + '}'.toString()
-    }
-
-    class Range {
-        /** 各モード  */
-        var modes: Modes? = null
-        var fixedButtons: Array<String>? = null
-
-        override fun toString(): String {
-            return "Range{" + "modes=" + modes + ", fixedButtons=" + Arrays.toString(fixedButtons) + '}'.toString()
-        }
-    }
-
-    class Modes : Serializable {
-        /** 冷房  */
-        var cool: AirConRangeMode? = null
-        /** 暖房  */
-        var warm: AirConRangeMode? = null
-        /** ドライ  */
-        var dry: AirConRangeMode? = null
-        /** 送風?  */
-        var blow: AirConRangeMode? = null
-        /** オート  */
-        var auto: AirConRangeMode? = null
-
-        override fun toString(): String {
-            return "Modes{" + "cool=" + cool + ", warm=" + warm + ", dry=" + dry + ", blow=" + blow + ", auto=" + auto + '}'.toString()
-        }
-    }
+    /**
+     * @param cool 冷房
+     * @param warm 暖房
+     * @param dry ドライ
+     * @param blow 送風
+     * @param auto オート
+     */
+    @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+    data class Modes(var cool: AirConRangeMode?, var warm: AirConRangeMode?, var dry: AirConRangeMode?, var blow: AirConRangeMode?, var auto: AirConRangeMode?) : Serializable
 
 }
 

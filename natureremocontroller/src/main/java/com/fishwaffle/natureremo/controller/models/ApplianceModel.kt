@@ -1,29 +1,21 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
 
 /**
  * Model(プリセット情報)
+ * @param id プリセットID
+ * @param manufacturer メーカー
+ * @param remote_name リモコンの型番
+ * @param series シリーズ
+ * @param name プリセット名
+ * @param image アイコン
  */
-class ApplianceModel : Serializable {
-    /** プリセットID  */
-    var id: String? = null
-    /** メーカー  */
-    var manufacturer: String? = null
-    /** リモコンの型番  */
-    var remote_name: String? = null
-    /** シリーズ  */
-    var series: String? = null
-    /** プリセット名  */
-    var name: String? = null
-    /** アイコン  */
-    var image: String? = null
-
-    override fun toString(): String {
-        return "ApplianceModel{" + "id='" + id + '\''.toString() + ", manufacturer='" + manufacturer + '\''.toString() + ", remote_name='" + remote_name + '\''.toString() + ", series='" + series + '\''.toString() + ", name='" + name + '\''.toString() + ", image='" + image + '\''.toString() + '}'.toString()
-    }
-}
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class ApplianceModel(var id: String?, var manufacturer: String?, var remote_name: String?, var series: String?, var name: String?, var image: String?) : Serializable

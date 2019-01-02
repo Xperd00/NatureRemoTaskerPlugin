@@ -1,46 +1,36 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
-import java.util.*
 
-/** テレビリモコンの情報  */
-class Tv : Serializable {
-    /** ボタンリスト  */
-    var buttons: Array<Button>? = null
+/** テレビリモコンの情報
+ * @param buttons ボタンリスト
+ * @param state 状態
+ * */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class Tv(var buttons: List<Button>? = null, var state: State? = null) : Serializable {
 
-    var state: State? = null
+    /**
+     * ボタン情報
+     * @param name ボタン名
+     * @param image ボタンアイコン
+     * @param label ラベル
+     */
+    @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+    data class Button(var name: String?, var image: String?, var label: String?) : Serializable
 
-    class Button : Serializable {
-        /** ボタン名  */
-        var name: String? = null
-        /** ボタンアイコン  */
-        var image: String? = null
-        /** ラベル  */
-        var label: String? = null
+    /**
+     * @param input
+     * TODO APIリファレンスに無いので分からない
+     * TOSHIBAのリモコンで「t」が取得できた
+     * ボタン表示のレイアウトの識別記号？
+     */
+    @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+    data class State(var input: String? = null) : Serializable
 
-        override fun toString(): String {
-            return "Button{" + "name='" + name + '\''.toString() + ", image='" + image + '\''.toString() + ", label='" + label + '\''.toString() + '}'.toString()
-        }
-    }
-
-    class State : Serializable {
-        /**
-         * TODO APIリファレンスに無いので分からない
-         * TOSHIBAのリモコンで「t」が取得できた
-         * ボタン表示のレイアウトの識別記号？
-         */
-        var input: String? = null
-
-        override fun toString(): String {
-            return "State{" + "input='" + input + '\''.toString() + '}'.toString()
-        }
-    }
-
-    override fun toString(): String {
-        return "TV{" + "buttons=" + Arrays.toString(buttons) + ", state=" + state + '}'.toString()
-    }
 }

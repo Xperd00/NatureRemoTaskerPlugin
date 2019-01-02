@@ -1,47 +1,29 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
 
-class AirConParams : Serializable {
-    /**
-     * 温度
-     * 指定可能な範囲はAirConRangeMode参照
-     */
-    var temp: String? = null
-    /**
-     * モード
-     * 冷房    :cool
-     * 暖房    :warm
-     * ドライ  :dry
-     * 送風?   :blow
-     * オート  :auto
-     * 指定可能なモードはAirConRangeMode参照
-     */
-    var mode: String? = null
-    /**
-     * 風量
-     * 指定可能な範囲はAirConRangeMode参照
-     */
-    var vol: String? = null
-    /**
-     * 風向き
-     * 指定可能な範囲はAirConRangeMode参照
-     */
-    var dir: String? = null
-    /**
-     * 電源
-     * ON :空文字
-     * OFF:power-off
-     */
-    var button: String? = null
-    /** 更新日時  */
-    var updated_at: String? = null
-
-    override fun toString(): String {
-        return "AirConParams{" + "temp='" + temp + '\''.toString() + ", mode='" + mode + '\''.toString() + ", vol='" + vol + '\''.toString() + ", dir='" + dir + '\''.toString() + ", button='" + button + '\''.toString() + ", updated_at='" + updated_at + '\''.toString() + '}'.toString()
-    }
-}
+/**
+ * 指定可能な範囲はAirConRangeMode参照
+ * @param temp 温度
+ * @param mode モード
+ *              冷房    :cool
+ *              暖房    :warm
+ *              ドライ  :dry
+ *              送風    :blow
+ *              オート  :auto
+ * @param vol 風量
+ * @param dir 風向き
+ * @param button 電源
+ *                ON :空文字
+ *                OFF:power-off
+ * @param updated_at 更新日時
+ *
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class AirConParams(var temp: String?, var mode: String?, var vol: String?, var dir: String?, var button: String?, var updated_at: String?) : Serializable

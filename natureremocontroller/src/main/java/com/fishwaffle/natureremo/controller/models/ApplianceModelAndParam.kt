@@ -1,14 +1,16 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
 
-class ApplianceModelAndParam : Serializable {
-    /**プリセット情報 */
-    var model: ApplianceModel? = null
-    /**エアコンの設定状態 */
-    var params: AirConParams? = null
-}
+/**
+ * @param model プリセット情報
+ * @param params エアコンの設定状態
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class ApplianceModelAndParam(var model: ApplianceModel?, var params: AirConParams?) : Serializable

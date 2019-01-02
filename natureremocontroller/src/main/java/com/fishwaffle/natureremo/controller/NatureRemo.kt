@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller
 
 
 import android.text.TextUtils.join
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.fishwaffle.natureremo.controller.models.*
 import java.io.IOException
 import java.io.PrintWriter
@@ -14,6 +15,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 
+/** jsonパース時に存在しないプロパティがある場合無視するか否か*/
+const val isIgnoreUnknown = true
 
 object NatureRemo {
 
@@ -24,7 +27,7 @@ object NatureRemo {
      * @return ユーザーの情報
      */
     fun usersMeGet(token: String): User? {
-        return get(token, "https://api.nature.global/1/users/me", User::class.java)
+        return get(token, "https://api.nature.global/1/users/me")
     }
 
     /**
@@ -34,7 +37,7 @@ object NatureRemo {
      * @return 更新後のユーザーの情報
      */
     fun usersMePOST(token: String, nickname: String): User? {
-        return post(token, "https://api.nature.global/1/users/me", User::class.java, "nickname=$nickname")
+        return post(token, "https://api.nature.global/1/users/me", "nickname=$nickname")
     }
 
     /**
@@ -44,7 +47,7 @@ object NatureRemo {
      * @return
      */
     fun detectAppliancePOST(token: String, message: String): ApplianceModelAndParam? {
-        return post(token, "https://api.nature.global/1/detectappliance", ApplianceModelAndParam::class.java, "message =$message")
+        return post(token, "https://api.nature.global/1/detectappliance", "message =$message")
     }
 
     /**
@@ -53,7 +56,7 @@ object NatureRemo {
      * @return デバイスリスト
      */
     fun devicesGet(token: String): Array<Device>? {
-        return get(token, "https://api.nature.global/1/devices", Array<Device>::class.java)
+        return get(token, "https://api.nature.global/1/devices")
     }
 
     /**
@@ -62,7 +65,7 @@ object NatureRemo {
      * @return アプライアンスリスト
      */
     fun appliancesGet(token: String): Array<Appliance>? {
-        return get(token, "https://api.nature.global/1/appliances", Array<Appliance>::class.java)
+        return get(token, "https://api.nature.global/1/appliances")
     }
 
 
@@ -74,7 +77,7 @@ object NatureRemo {
      * アプライアンスIDをカンマ区切りで指定
      */
     fun applianceOrdersPOST(token: String, appliances: String) {
-        post(token, "https://api.nature.global/1/appliance_orders", Any::class.java, "appliances=$appliances")
+        post<Any?>(token, "https://api.nature.global/1/appliance_orders", "appliances=$appliances")
     }
 
     /**
@@ -93,7 +96,7 @@ object NatureRemo {
         query.add("device=$device")
         query.add("image=" + image.toString())
 
-        return post(token, "https://api.nature.global/1/appliances", Appliance::class.java, join("&", query))
+        return post(token, "https://api.nature.global/1/appliances", join("&", query))
     }
 
     /**
@@ -102,7 +105,7 @@ object NatureRemo {
      * @param appliance アプライアンスID
      */
     fun appliancesApplianceDeletePost(token: String, appliance: String) {
-        post(token, "https://api.nature.global/1/appliances/$appliance/delete", Any::class.java, null)
+        post<Any?>(token, "https://api.nature.global/1/appliances/$appliance/delete", null)
     }
 
     /**
@@ -118,7 +121,7 @@ object NatureRemo {
         query.add("nickname=$nickname")
         query.add("image=" + image.toString())
 
-        return post(token, "https://api.nature.global/1/appliances/$appliance", Appliance::class.java, join("&", query))
+        return post(token, "https://api.nature.global/1/appliances/$appliance", join("&", query))
     }
 
     /**
@@ -151,7 +154,7 @@ object NatureRemo {
         if (air_direction != null) query.add("air_direction=$air_direction")
         if (button != null) query.add("button=$button")
 
-        return post(token, "https://api.nature.global/1/appliances/$appliance/aircon_settings", AirConParams::class.java, join("&", query))
+        return post(token, "https://api.nature.global/1/appliances/$appliance/aircon_settings", join("&", query))
     }
 
 
@@ -162,7 +165,7 @@ object NatureRemo {
      * @return シグナルリスト
      */
     fun appliancesApplianceSignalsGet(token: String, appliance: String): Array<Signal>? {
-        return get(token, "https://api.nature.global/1/appliances/$appliance/signals", Array<Signal>::class.java)
+        return get(token, "https://api.nature.global/1/appliances/$appliance/signals")
     }
 
 
@@ -181,7 +184,7 @@ object NatureRemo {
         query.add("message=$message")
         query.add("image=" + image.toString())
         query.add("name=$name")
-        return post(token, "https://api.nature.global/1/appliances/$appliance/signals", Signal::class.java, join("&", query))
+        return post(token, "https://api.nature.global/1/appliances/$appliance/signals", join("&", query))
     }
 
     /**
@@ -193,7 +196,7 @@ object NatureRemo {
      * シグナルIDをカンマ区切りで指定
      */
     fun appliancesApplianceSignalsOrdersPOST(token: String, appliance: String, signals: String) {
-        post(token, "https://api.nature.global/1/appliances/$appliance/signal_orders", Any::class.java, "signals=$signals")
+        post<Any?>(token, "https://api.nature.global/1/appliances/$appliance/signal_orders", "signals=$signals")
     }
 
     /**
@@ -209,7 +212,7 @@ object NatureRemo {
         query.add("image=" + image.toString())
         query.add("name=$name")
 
-        return post(token, "https://api.nature.global/1/signals/$signal", Signal::class.java, join("&", query))
+        return post(token, "https://api.nature.global/1/signals/$signal", join("&", query))
     }
 
     /**
@@ -218,7 +221,7 @@ object NatureRemo {
      * @param signal シグナルID
      */
     fun signalsSignalSendPost(token: String, signal: String) {
-        post(token, "https://api.nature.global/1/signals/$signal/send", Any::class.java, null)
+        post<Any?>(token, "https://api.nature.global/1/signals/$signal/send", null)
     }
 
     /**
@@ -227,7 +230,7 @@ object NatureRemo {
      * @param signal シグナルID
      */
     fun signalsSignalDeletePost(token: String, signal: String) {
-        post(token, "https://api.nature.global/1/signals/$signal/delete", Any::class.java, null)
+        post<Any?>(token, "https://api.nature.global/1/signals/$signal/delete", null)
     }
 
     /**
@@ -238,7 +241,7 @@ object NatureRemo {
      * @return 更新後のデバイス情報
      */
     fun devicesDevicePost(token: String, device: String, name: String): Device? {
-        return post(token, "https://api.nature.global/1/devices/$device", Device::class.java, "name=$name")
+        return post(token, "https://api.nature.global/1/devices/$device", "name=$name")
     }
 
     /**
@@ -247,7 +250,7 @@ object NatureRemo {
      * @param device デバイスID
      */
     fun devicesDeviceDeletePost(token: String, device: String) {
-        post(token, "https://api.nature.global/1/devices/$device/delete", Any::class.java, null)
+        post<Any?>(token, "https://api.nature.global/1/devices/$device/delete", null)
     }
 
     /**
@@ -258,7 +261,7 @@ object NatureRemo {
      * @return 更新後のデバイス情報
      */
     fun devicesDeviceHumidityOffsetPost(token: String, device: String, offset: Int): Device? {
-        return post(token, "https://api.nature.global/1/devices/$device/humidity_offset", Device::class.java, "offset=$offset")
+        return post(token, "https://api.nature.global/1/devices/$device/humidity_offset", "offset=$offset")
     }
 
     /**
@@ -269,10 +272,10 @@ object NatureRemo {
      * @return 更新後のデバイス情報
      */
     fun devicesDeviceTemperatureOffsetPost(token: String, device: String, offset: Int): Device? {
-        return post(token, "https://api.nature.global/1/devices/$device/temperature_offset", Device::class.java, "offset=$offset")
+        return post(token, "https://api.nature.global/1/devices/$device/temperature_offset", "offset=$offset")
     }
 
-    private fun <T> get(token: String, url: String, dataClass: Class<T>): T? {
+    private inline fun <reified T> get(token: String, url: String): T? {
         try {
             val conn = URL(url).openConnection() as HttpURLConnection
             conn.requestMethod = "GET"
@@ -282,17 +285,8 @@ object NatureRemo {
             val statusCode = conn.responseCode
 
             if (statusCode == HttpURLConnection.HTTP_OK) {
-//                val result = StringBuilder()
-                val result = conn.inputStream.bufferedReader().use { it.readText() }
-                //responseの読み込み
-//                BufferedReader(InputStreamReader(conn.inputStream, StandardCharsets.UTF_8)).use { br ->
-//                    var line: String
-//                    br.useLines {  }
-//                    while ((line = br.readLine()) != null) {
-//                        result.append(line)
-//                    }
-//                }
-                return ObjectMapper().readValue(result, dataClass)
+
+                return jacksonObjectMapper().readValue(conn.inputStream)
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -303,7 +297,7 @@ object NatureRemo {
         return null
     }
 
-    private fun <T> post(token: String, url: String, dataClass: Class<T>, params: String?): T? {
+    private inline fun <reified T> post(token: String, url: String, params: String?): T? {
         try {
             val conn = URL(url).openConnection() as HttpURLConnection
             conn.requestMethod = "POST"
@@ -323,17 +317,8 @@ object NatureRemo {
             val statusCode = conn.responseCode
 
             if (statusCode == HttpURLConnection.HTTP_OK || statusCode == HttpURLConnection.HTTP_CREATED) {
-//                val result = StringBuilder()
-                val result = conn.inputStream.bufferedReader().use { it.readText() }
+                return jacksonObjectMapper().readValue(conn.inputStream)
 
-//                //responseの読み込み
-//                BufferedReader(InputStreamReader(conn.inputStream, StandardCharsets.UTF_8)).use { br ->
-//                    var line: String
-//                    while ((line = br.readLine()) != null) {
-//                        result.append(line)
-//                    }
-//                }
-                return ObjectMapper().readValue(result, dataClass)
             }
         } catch (e: IOException) {
             e.printStackTrace()

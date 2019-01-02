@@ -1,25 +1,17 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
-import java.util.*
 
-class AirConRangeMode : Serializable {
-    /**温度 */
-    var temp: Array<String>? = null
-    /**風量 */
-    var vol: Array<String>? = null
-    /**風向き */
-    var dir: Array<String>? = null
-
-    override fun toString(): String {
-        return "AirConRangeMode{" +
-                "temp=" + Arrays.toString(temp) +
-                ", vol=" + Arrays.toString(vol) +
-                ", dir=" + Arrays.toString(dir) +
-                '}'.toString()
-    }
-}
+/**
+ * @param temp 温度
+ * @param vol 風量
+ * @param dir 風向き
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class AirConRangeMode(var temp: List<String>?, var vol: List<String>?, var dir: List<String>?) : Serializable

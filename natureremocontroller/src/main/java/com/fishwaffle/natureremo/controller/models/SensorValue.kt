@@ -1,22 +1,18 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
 
-/** センサー値  */
-class SensorValue : Serializable {
-    /** センサー値  */
-    var `val`: Float = 0.toFloat()
-    /** 作成日時  */
-    var created_at: String? = null
-
-    override fun toString(): String {
-        return "SensorValue{" +
-                "val=" + `val` +
-                ", created_at='" + created_at + '\''.toString() +
-                '}'.toString()
-    }
-}
+/** センサーの値
+ * @param value 値
+ * @param created_at 作成日時
+ *
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class SensorValue(@JsonProperty("val") var value: Float, var created_at: String?) : Serializable

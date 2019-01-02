@@ -1,140 +1,140 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller
 
-enum class SignalImage {
+enum class SignalImage(val value: String, val string: String) {
     /** 0  */
-    ico_number_0,
+    NUMBER_0("ico_number_0", "0"),
     /** 1  */
-    ico_number_1,
+    NUMBER_1("ico_number_1", "1"),
     /** 2  */
-    ico_number_2,
+    NUMBER_2("ico_number_2", "2"),
     /** 3  */
-    ico_number_3,
+    NUMBER_3("ico_number_3", "3"),
     /** 4  */
-    ico_number_4,
+    NUMBER_4("ico_number_4", "4"),
     /** 5  */
-    ico_number_5,
+    NUMBER_5("ico_number_5", "5"),
     /** 6  */
-    ico_number_6,
+    NUMBER_6("ico_number_6", "6"),
     /** 7  */
-    ico_number_7,
+    NUMBER_7("ico_number_7", "7"),
     /** 8  */
-    ico_number_8,
+    NUMBER_8("ico_number_8", "8"),
     /** 9  */
-    ico_number_9,
+    NUMBER_9("ico_number_9", "9"),
     /** 10  */
-    ico_number_10,
+    NUMBER_10("ico_number_10", "10"),
     /** 11  */
-    ico_number_11,
+    NUMBER_11("ico_number_11", "11"),
     /** 12  */
-    ico_number_12,
+    NUMBER_12("ico_number_12", "12"),
     /** 電源  */
-    ico_io,
+    IO("ico_io", "電源"),
     /** 画面切替  */
-    ico_display,
+    DISPLAY("ico_display", "画面切替"),
     /** マイナス  */
-    ico_minus,
+    MINUS("ico_minus", "マイナス"),
     /** プラス  */
-    ico_plus,
+    PLUS("ico_plus", "プラス"),
     /** チェック  */
-    ico_check,
+    CHECK("ico_check", "チェック"),
     /** 閉じる  */
-    ico_cross,
+    CROSS("ico_cross", "閉じる"),
     /** 再生  */
-    ico_play,
+    PLAY("ico_play", "再生"),
     /** 一時停止  */
-    ico_pause,
+    PAUSE("ico_pause", "一時停止"),
     /** 停止  */
-    ico_stop,
+    STOP("ico_stop", "停止"),
     /** 録画  */
-    ico_record,
+    RECORD("ico_record", "録画"),
     /** 早送り  */
-    ico_forward,
+    FORWARD("ico_forward", "早送り"),
     /** 早戻し  */
-    ico_backward,
+    BACKWARD("ico_backward", "早戻し"),
     /** 次  */
-    ico_next,
+    NEXT("ico_next", "次"),
     /** 前  */
-    ico_previous,
+    PREVIOUS("ico_previous", "前"),
     /** 緑  */
-    ico_color_green,
+    COLOR_GREEN("ico_color_green", "緑"),
     /** 赤  */
-    ico_color_red,
+    COLOR_RED("ico_color_red", "赤"),
     /** 青  */
-    ico_color_blue,
+    COLOR_BLUE("ico_color_blue", "青"),
     /** 黄色  */
-    ico_color_yellow,
+    COLOR_YELLOW("ico_color_yellow", "黄色"),
     /** 下  */
-    ico_arrow_bottom,
+    ARROW_BOTTOM("ico_arrow_bottom", "下"),
     /** 左  */
-    ico_arrow_left,
+    ARROW_LEFT("ico_arrow_left", "左"),
     /** 右  */
-    ico_arrow_right,
+    ARROW_RIGHT("ico_arrow_right", "右"),
     /** 上  */
-    ico_arrow_top,
+    ARROW_TOP("ico_arrow_top", "上"),
     /** エコ  */
-    ico_ac_eco,
+    AC_ECO("ico_ac_eco", "エコ"),
     /** 風量  */
-    ico_ac_fan,
+    AC_FAN("ico_ac_fan", "風量"),
     /** 除湿  */
-    ico_ac_dry,
+    AC_DRY("ico_ac_dry", "除湿"),
     /** 暖房  */
-    ico_ac_warm,
+    AC_WARM("ico_ac_warm", "暖房"),
     /** 冷房  */
-    ico_ac_cool,
+    AC_COOL("ico_ac_cool", "冷房"),
     /** 戻る  */
-    ico_return,
+    RETURN("ico_return", "戻る"),
     /** 消灯  */
-    ico_lightdown,
+    LIGHTDOWN("ico_lightdown", "消灯"),
     /** 点灯  */
-    ico_lightup,
+    LIGHTUP("ico_lightup", "点灯"),
     /** 送風  */
-    ico_blast,
+    BLAST("ico_blast", "送風"),
     /** 窓用エアコン  */
-    ico_ac0,
+    AC0("ico_ac0", "窓用エアコン"),
     /** エアコン  */
-    ico_ac1,
+    AC1("ico_ac1", "エアコン"),
     /** オン  */
-    ico_on,
+    ON("ico_on", "オン"),
     /** オフ  */
-    ico_off,
+    OFF("ico_off", "オフ"),
     /** 自動  */
-    ico_mode_auto,
+    MODE_AUTO("ico_mode_auto", "自動"),
     /** データ  */
-    ico_d,
+    D("ico_d", "データ"),
     /** 番組表  */
-    ico_tv_guide,
+    TV_GUIDE("ico_tv_guide", "番組表"),
     /** FM  */
-    ico_fm,
+    FM("ico_fm", "FM"),
     /** AM  */
-    ico_am,
+    AM("ico_am", "AM"),
     /** CS  */
-    ico_cs,
+    CS("ico_cs", "CS"),
     /** BS  */
-    ico_bs,
+    BS("ico_bs", "BS"),
     /** TV  */
-    ico_tv,
+    TV("ico_tv", "TV"),
     /** メニュー  */
-    ico_menu,
+    MENU("ico_menu", "メニュー"),
     /** タイマー  */
-    ico_timer,
+    TIMER("ico_timer", "タイマー"),
     /** オプション  */
-    ico_option,
+    OPTION("ico_option", "オプション"),
     /** 消音  */
-    ico_mute,
+    MUTE("ico_mute", "消音"),
     /** 字幕  */
-    ico_subtitle,
+    SUBTITLE("ico_subtitle", "字幕"),
     /** ブロードキャスト  */
-    ico_broadcast,
+    BROADCAST("ico_broadcast", "ブロードキャスト"),
     /** 入力  */
-    ico_input,
+    INPUT("ico_input", "入力"),
     /** 閉じる  */
-    ico_text_close,
+    TEXT_CLOSE("ico_text_close", "閉じる"),
     /** 開ける  */
-    ico_text_open,
+    TEXT_OPEN("ico_text_open", "開ける"),
     /** 停止  */
-    ico_text_stop
+    TEXT_STOP("ico_text_stop", "停止");
 }

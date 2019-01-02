@@ -1,18 +1,18 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.controller.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
 
-class User : Serializable {
-    /** ユーザーID  */
-    var id: String? = null
-    /** ユーザー名  */
-    var nickname: String? = null
-
-    override fun toString(): String {
-        return "User{" + "id='" + id + '\''.toString() + ", nickname='" + nickname + '\''.toString() + '}'.toString()
-    }
-}
+/**
+ * ユーザー情報
+ * @param id ユーザーID
+ * @param nickname ユーザー名
+ * @param superuser スーパーユーザー
+ */
+@JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
+data class User(var id: String?, var nickname: String?, var superuser: Boolean) : Serializable
