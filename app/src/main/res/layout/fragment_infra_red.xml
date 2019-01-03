@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2018 FishWaffle.
+  ~ Copyright (c) 2019 FishWaffle.
   -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context="com.fishwaffle.natureremo.taskerplugin.fragment.InfraRedFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/signalRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

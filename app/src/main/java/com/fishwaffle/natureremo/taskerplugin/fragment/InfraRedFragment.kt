@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.taskerplugin.fragment
@@ -7,10 +7,6 @@ package com.fishwaffle.natureremo.taskerplugin.fragment
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +17,9 @@ import com.fishwaffle.natureremo.taskerplugin.R
 import com.fishwaffle.natureremo.taskerplugin.createTaskerDataSignalSend
 import kotlinx.android.synthetic.main.fragment_infra_red.*
 
-class InfraRedFragment : Fragment() {
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+class InfraRedFragment : androidx.fragment.app.Fragment() {
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_infra_red, container, false)
@@ -33,7 +29,7 @@ class InfraRedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val args = InfraRedFragmentArgs.fromBundle(arguments!!)
         val applianceName = args.appliance.nickname
-        viewManager = LinearLayoutManager(context)
+        viewManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         viewAdapter = SignalAdapter(args.appliance.signals!!.toList(), object : SignalAdapter.OnItemClickListener {
             override fun onClick(signalName: String, id: String) {
                 val intent = createTaskerDataSignalSend(applianceName!!, signalName, id)
@@ -42,7 +38,7 @@ class InfraRedFragment : Fragment() {
             }
         })
         signalRecycler.apply {
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(context, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
             adapter = viewAdapter
             layoutManager = viewManager
@@ -50,9 +46,9 @@ class InfraRedFragment : Fragment() {
     }
 
     class SignalAdapter(private val myDadaist: List<Signal>, private val listener: OnItemClickListener) :
-            RecyclerView.Adapter<SignalAdapter.MyViewHolder>() {
+            androidx.recyclerview.widget.RecyclerView.Adapter<SignalAdapter.MyViewHolder>() {
 
-        class MyViewHolder(val linearLayout: LinearLayout, val name: TextView) : RecyclerView.ViewHolder(linearLayout)
+        class MyViewHolder(val linearLayout: LinearLayout, val name: TextView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(linearLayout)
         interface OnItemClickListener {
             fun onClick(signalName: String, id: String)
         }

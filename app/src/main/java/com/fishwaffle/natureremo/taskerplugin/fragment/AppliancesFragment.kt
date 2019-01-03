@@ -1,15 +1,11 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.taskerplugin.fragment
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +17,10 @@ import com.fishwaffle.natureremo.taskerplugin.R
 import kotlinx.android.synthetic.main.fragment_appliances.*
 
 
-class AppliancesFragment : Fragment() {
+class AppliancesFragment : androidx.fragment.app.Fragment() {
 
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
+    private lateinit var viewManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_appliances, container, false)
@@ -32,10 +28,10 @@ class AppliancesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewManager = LinearLayoutManager(context)
+        viewManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         viewAdapter = ApplianceAdapter(AppliancesFragmentArgs.fromBundle(arguments!!).appliances)
         applianceRecycler.apply {
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(context, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL))
             setHasFixedSize(true)
             adapter = viewAdapter
             layoutManager = viewManager
@@ -43,9 +39,9 @@ class AppliancesFragment : Fragment() {
     }
 
     class ApplianceAdapter(private val myDadaist: List<Appliance>) :
-            RecyclerView.Adapter<ApplianceAdapter.MyViewHolder>() {
+            androidx.recyclerview.widget.RecyclerView.Adapter<ApplianceAdapter.MyViewHolder>() {
 
-        class MyViewHolder(val linearLayout: LinearLayout, val name: TextView, val type: TextView) : RecyclerView.ViewHolder(linearLayout)
+        class MyViewHolder(val linearLayout: LinearLayout, val name: TextView, val type: TextView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(linearLayout)
 
         override fun onCreateViewHolder(parent: ViewGroup,
                                         viewType: Int): MyViewHolder {

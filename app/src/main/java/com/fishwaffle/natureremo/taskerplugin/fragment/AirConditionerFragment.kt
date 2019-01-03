@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.taskerplugin.fragment
@@ -7,7 +7,6 @@ package com.fishwaffle.natureremo.taskerplugin.fragment
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.fragment.app.Fragment
 import com.fishwaffle.natureremo.controller.models.AirConRangeMode
 import com.fishwaffle.natureremo.taskerplugin.R
 import com.fishwaffle.natureremo.taskerplugin.createTaskerDataAirConPowerOff
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_air_conditioner.*
  * A simple [Fragment] subclass.
  *
  */
-class AirConditionerFragment : Fragment() {
+class AirConditionerFragment : androidx.fragment.app.Fragment() {
     private lateinit var mModesArray: ArrayAdapter<String>
     private lateinit var mTempArray: ArrayAdapter<String>
     private lateinit var mVolArray: ArrayAdapter<String>
