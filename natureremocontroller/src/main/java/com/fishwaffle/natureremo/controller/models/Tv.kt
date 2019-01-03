@@ -5,7 +5,7 @@
 package com.fishwaffle.natureremo.controller.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fishwaffle.natureremo.controller.isIgnoreUnknown
+import com.fishwaffle.natureremo.controller.NatureRemo.isIgnoreUnknown
 import java.io.Serializable
 
 /** テレビリモコンの情報

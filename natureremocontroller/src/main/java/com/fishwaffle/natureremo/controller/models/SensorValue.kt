@@ -6,7 +6,7 @@ package com.fishwaffle.natureremo.controller.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fishwaffle.natureremo.controller.isIgnoreUnknown
+import com.fishwaffle.natureremo.controller.NatureRemo.isIgnoreUnknown
 import java.io.Serializable
 
 /** センサーの値

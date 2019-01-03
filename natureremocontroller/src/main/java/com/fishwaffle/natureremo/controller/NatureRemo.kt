@@ -15,11 +15,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 
-/** jsonパース時に存在しないプロパティがある場合無視するか否か*/
-const val isIgnoreUnknown = true
 
 object NatureRemo {
-
+    /** jsonパース時に存在しないプロパティがある場合無視するか否か*/
+    const val isIgnoreUnknown = true
 
     /**
      * Fetch the authenticated user’s information.

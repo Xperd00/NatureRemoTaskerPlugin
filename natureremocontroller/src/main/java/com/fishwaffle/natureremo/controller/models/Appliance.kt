@@ -7,9 +7,8 @@ package com.fishwaffle.natureremo.controller.models
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fishwaffle.natureremo.controller.ApplianceImage
 import com.fishwaffle.natureremo.controller.NatureRemo
+import com.fishwaffle.natureremo.controller.NatureRemo.isIgnoreUnknown
 import com.fishwaffle.natureremo.controller.SignalImage
-import com.fishwaffle.natureremo.controller.Util.requireNonNull
-import com.fishwaffle.natureremo.controller.isIgnoreUnknown
 import java.io.Serializable
 
 /**
@@ -47,7 +46,7 @@ data class Appliance(var id: String?, var device: Device?, var model: ApplianceM
      * @return 更新後のアプライアンス
      */
     fun update(token: String, image: ApplianceImage, nickname: String): Appliance? {
-        return NatureRemo.appliancesAppliancePost(token, id!!, requireNonNull(image, ApplianceImage.valueOf(this.image!!)), requireNonNull(nickname, this.nickname!!))
+        return NatureRemo.appliancesAppliancePost(token, id!!, image, nickname)
     }
 
     /**
@@ -83,7 +82,7 @@ data class Appliance(var id: String?, var device: Device?, var model: ApplianceM
      * @return 更新した設定
      */
     fun airconSettings(token: String, temperature: String, operation_mode: String, air_volume: String, air_direction: String, button: String): AirConParams? {
-        return NatureRemo.appliancesApplianceAirConSettingsPost(token, id!!, requireNonNull(temperature, settings!!.temp), requireNonNull(operation_mode, settings!!.mode), requireNonNull(air_volume, settings!!.vol), requireNonNull(air_direction, settings!!.dir), requireNonNull(button, settings!!.button))
+        return NatureRemo.appliancesApplianceAirConSettingsPost(token, id!!, temperature, operation_mode, air_volume, air_direction, button)
     }
 
 }
