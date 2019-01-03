@@ -8,6 +8,9 @@ package com.fishwaffle.natureremo.controller
 import android.text.TextUtils.join
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.fishwaffle.natureremo.controller.exception.AuthenticationException
+import com.fishwaffle.natureremo.controller.exception.OtherException
+import com.fishwaffle.natureremo.controller.exception.RequestLimitException
 import com.fishwaffle.natureremo.controller.models.*
 import java.io.IOException
 import java.io.PrintWriter
@@ -281,19 +284,28 @@ object NatureRemo {
             conn.setRequestProperty("accept", "application/json")
             conn.setRequestProperty("Authorization", "Bearer $token")
             conn.connect()
-            val statusCode = conn.responseCode
 
-            if (statusCode == HttpURLConnection.HTTP_OK) {
+            when (conn.responseCode) {
+                HttpURLConnection.HTTP_OK -> {
+                    //通信成功
+                    return jacksonObjectMapper().readValue(conn.inputStream)
+                }
+                HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                    //認証エラー
+                    throw AuthenticationException()
+                }
+                429 -> {
+                    //リクエスト制限
+                    throw RequestLimitException()
 
-                return jacksonObjectMapper().readValue(conn.inputStream)
+                }
+                else -> {
+                    throw OtherException()
+                }
             }
         } catch (e: IOException) {
-            e.printStackTrace()
-            return null
-
+            throw OtherException(e.message)
         }
-
-        return null
     }
 
     private inline fun <reified T> post(token: String, url: String, params: String?): T? {
@@ -304,7 +316,7 @@ object NatureRemo {
             conn.addRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
             conn.setRequestProperty("Authorization", "Bearer $token")
             conn.doInput = true
-            if (params != null) {
+            if (params is String) {
                 conn.doOutput = true
                 PrintWriter(conn.outputStream).use { out ->
                     out.print(params)
@@ -313,18 +325,29 @@ object NatureRemo {
             }
 
             conn.connect()
-            val statusCode = conn.responseCode
 
-            if (statusCode == HttpURLConnection.HTTP_OK || statusCode == HttpURLConnection.HTTP_CREATED) {
-                return jacksonObjectMapper().readValue(conn.inputStream)
+            when (conn.responseCode) {
+                HttpURLConnection.HTTP_OK, HttpURLConnection.HTTP_CREATED -> {
+                    //通信成功
+                    return jacksonObjectMapper().readValue(conn.inputStream)
+                }
+                HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                    //認証エラー
+                    throw AuthenticationException()
+                }
+                429 -> {
+                    //リクエスト制限
+                    throw RequestLimitException()
 
+                }
+                else -> {
+                    throw OtherException()
+                }
             }
         } catch (e: IOException) {
-            e.printStackTrace()
-            return null
-
+            throw OtherException(e.message)
         }
-
-        return null
     }
+
 }
+
