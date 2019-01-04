@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2019 FishWaffle.
+  -->
+
 <resources>
     <string name="app_name">NatureRemoTaskerPlugin</string>
 
@@ -12,4 +16,6 @@
     <string name="Temp">温度</string>
     <string name="Vol">風量</string>
     <string name="Dir">風向き</string>
+    <string name="SendSuccess">送信成功</string>
+    <string name="SendError">送信失敗</string>
 </resources>

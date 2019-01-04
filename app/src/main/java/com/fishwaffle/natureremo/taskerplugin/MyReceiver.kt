@@ -8,7 +8,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
-import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 import com.fishwaffle.natureremo.controller.NatureRemo
 import com.fishwaffle.natureremo.controller.exception.AuthenticationException
 import com.fishwaffle.natureremo.controller.exception.OtherException
@@ -19,6 +19,13 @@ class MyReceiver : BroadcastReceiver() {
     private val handler = Handler()
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action.equals(FIRE_SETTING, ignoreCase = true)) {
+
+            if (intent.hasExtra(BUNDLE_NOTIFICATION_ID)) {
+                with(NotificationManagerCompat.from(context)) {
+                    cancel(intent.getIntExtra(BUNDLE_NOTIFICATION_ID, 0))
+                }
+            }
+
             val bundle = intent.getBundleExtra(EXTRA_BUNDLE)
             val blurb = intent.getStringExtra(EXTRA_BLURB)
             val typeStr = bundle.getString(BUNDLE_TYPE) ?: return
@@ -29,11 +36,11 @@ class MyReceiver : BroadcastReceiver() {
                     when (type) {
                         Type.SignalSend -> {
                             val signal = bundle.getString(BUNDLE_SIGNAL_ID)
-                            NatureRemo.signalsSignalSendPost(getToken(context), signal)
+                            NatureRemo.signalsSignalSendPost(getToken(context), signal!!)
                         }
                         Type.AirConPowerOff -> {
                             val appliancesId = bundle.getString(BUNDLE_APPLIANCE_ID)
-                            NatureRemo.appliancesApplianceAirConSettingsPost(getToken(context), appliancesId,
+                            NatureRemo.appliancesApplianceAirConSettingsPost(getToken(context), appliancesId!!,
                                     null, null, null, null,
                                     "power-off")
 
@@ -46,7 +53,7 @@ class MyReceiver : BroadcastReceiver() {
                             val direction = if (bundle.containsKey(BUNDLE_AIR_DIRECTION)) bundle.getString(BUNDLE_AIR_DIRECTION) else null
 
 
-                            NatureRemo.appliancesApplianceAirConSettingsPost(getToken(context), appliancesId,
+                            NatureRemo.appliancesApplianceAirConSettingsPost(getToken(context), appliancesId!!,
                                     temperature, mode, volume, direction,
                                     "")
 
@@ -55,17 +62,17 @@ class MyReceiver : BroadcastReceiver() {
 
                     }
                     //成功した場合
-                    handler.post { Toast.makeText(context, blurb, Toast.LENGTH_SHORT).show() }
+                    handler.post { showSendSuccessNotification(context, blurb) }
 
                 } catch (e: AuthenticationException) {
                     //Token設定画面
-                    handler.post { Toast.makeText(context, "Token設定画面", Toast.LENGTH_SHORT).show() }
+                    handler.post { showToSettingNotification(context, blurb) }
                 } catch (e: RequestLimitException) {
                     //リクエスト制限
-                    handler.post { Toast.makeText(context, "リクエスト制限エラー", Toast.LENGTH_SHORT).show() }
+                    handler.post { showSendErrorNotification(context, blurb, intent) }
                 } catch (e: OtherException) {
                     //その他
-                    handler.post { Toast.makeText(context, "その他", Toast.LENGTH_SHORT).show() }
+                    handler.post { showSendErrorNotification(context, blurb, intent) }
                 }
             }
         }
