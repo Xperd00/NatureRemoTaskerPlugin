@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2018 FishWaffle.
+  ~ Copyright (c) 2019 FishWaffle.
   -->
 
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,6 +43,10 @@
         <argument
             android:name="appliances"
             app:argType="com.fishwaffle.natureremo.taskerplugin.Appliances" />
+        <action
+            android:id="@+id/toTvFragment"
+            app:destination="@id/tvFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/infraRedFragment"
@@ -75,5 +79,13 @@
             android:name="Edit"
             app:argType="boolean"
             android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvFragment"
+        android:name="com.fishwaffle.natureremo.taskerplugin.fragment.TvFragment"
+        tools:layout="@layout/fragment_tv">
+        <argument
+            android:name="appliance"
+            app:argType="com.fishwaffle.natureremo.controller.models.Appliance" />
     </fragment>
 </navigation>

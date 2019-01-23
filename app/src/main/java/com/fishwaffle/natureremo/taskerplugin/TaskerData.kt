@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 FishWaffle.
+ * Copyright (c) 2019 FishWaffle.
  */
 
 package com.fishwaffle.natureremo.taskerplugin
@@ -22,6 +22,8 @@ const val BUNDLE_TYPE = "com.fishwaffle.natureremo.TYPE"
 
 const val BUNDLE_SIGNAL_ID = "com.fishwaffle.natureremo.SIGNAL_ID"
 
+const val BUNDLE_TV_BUTTON = "com.fishwaffle.natureremo.TV_BUTTON"
+
 //エアコン関連
 const val BUNDLE_APPLIANCE_ID = "com.fishwaffle.natureremo.APPLIANCE_ID"
 const val BUNDLE_MODE = "com.fishwaffle.natureremo.MODE"
@@ -30,7 +32,7 @@ const val BUNDLE_TEMPERATURE = "com.fishwaffle.natureremo.TEMPERATURE"
 const val BUNDLE_AIR_DIRECTION = "com.fishwaffle.natureremo.AIR_DIRECTION"
 
 enum class Type {
-    SignalSend, AirConSettings, AirConPowerOff
+    SignalSend, AirConSettings, AirConPowerOff, TVSend
 
 }
 
@@ -42,6 +44,18 @@ fun createTaskerDataSignalSend(applianceName: String, signalName: String, id: St
         }
         putExtra(EXTRA_BUNDLE, bundle)
         putExtra(EXTRA_BLURB, "$applianceName : $signalName")
+    }
+}
+
+fun createTaskerDataTvSend(applianceName: String, applianceId: String, buttonName: String, buttonLabel: String): Intent {
+    return Intent().apply {
+        val bundle = Bundle().apply {
+            putString(BUNDLE_TYPE, Type.TVSend.toString())
+            putString(BUNDLE_APPLIANCE_ID, applianceId)
+            putString(BUNDLE_TV_BUTTON, buttonName)
+        }
+        putExtra(EXTRA_BUNDLE, bundle)
+        putExtra(EXTRA_BLURB, "$applianceName : $buttonLabel")
     }
 }
 

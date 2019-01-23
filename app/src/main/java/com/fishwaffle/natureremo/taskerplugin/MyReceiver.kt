@@ -59,7 +59,11 @@ class MyReceiver : BroadcastReceiver() {
 
 
                         }
-
+                        Type.TVSend -> {
+                            val appliancesId = bundle.getString(BUNDLE_APPLIANCE_ID)
+                            val button = bundle.getString(BUNDLE_TV_BUTTON)
+                            NatureRemo.appliancesApplianceTvPOST(getToken(context), appliancesId!!, button!!)
+                        }
                     }
                     //成功した場合
                     handler.post { showSendSuccessNotification(context, blurb) }

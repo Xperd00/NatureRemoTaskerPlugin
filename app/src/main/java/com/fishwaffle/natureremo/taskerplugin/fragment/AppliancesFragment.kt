@@ -59,10 +59,9 @@ class AppliancesFragment : androidx.fragment.app.Fragment() {
                     "AC" -> {
                         Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toAirConditionerFragment(appliance))
                     }
-                    //todo TVのプリセットを叩くAPIが公開されるまでコメントアウト
-//                    "TV" -> {
-//
-//                    }
+                    "TV" -> {
+                        Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toTvFragment(appliance))
+                    }
                     else -> {
                         Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toInfraRedFragment(appliance))
                     }
