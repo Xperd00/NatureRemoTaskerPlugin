@@ -277,6 +277,19 @@ object NatureRemo {
         return post(token, "https://api.nature.global/1/devices/$device/temperature_offset", "offset=$offset")
     }
 
+    /**
+     * Send tv infrared signal.
+     * テレビの赤外線信号を送信します。
+     * @param appliance アプライアンスID
+     * @param button   TVボタン名
+     * @return テレビStatus
+     */
+    fun appliancesApplianceTvPOST(token: String, appliance: String, button: String): Tv.State? {
+        val query = HashSet<CharSequence>()
+        query.add("button=$button")
+        return post(token, "https://api.nature.global/1/appliances/$appliance/tv", join("&", query))
+    }
+
     private inline fun <reified T> get(token: String, url: String): T? {
         try {
             val conn = URL(url).openConnection() as HttpURLConnection

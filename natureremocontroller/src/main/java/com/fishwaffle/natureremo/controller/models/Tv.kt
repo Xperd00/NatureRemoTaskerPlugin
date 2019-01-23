@@ -16,7 +16,7 @@ import java.io.Serializable
 data class Tv(var buttons: List<Button>? = null, var state: State? = null) : Serializable {
 
     /**
-     * ボタン情報
+     * TVボタン情報
      * @param name ボタン名
      * @param image ボタンアイコン
      * @param label ラベル
@@ -25,10 +25,8 @@ data class Tv(var buttons: List<Button>? = null, var state: State? = null) : Ser
     data class Button(var name: String?, var image: String?, var label: String?) : Serializable
 
     /**
-     * @param input
-     * TODO APIリファレンスに無いので分からない
-     * TOSHIBAのリモコンで「t」が取得できた
-     * ボタン表示のレイアウトの識別記号？
+     * TVStatus
+     * @param input [t, bs, cs]
      */
     @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
     data class State(var input: String? = null) : Serializable
