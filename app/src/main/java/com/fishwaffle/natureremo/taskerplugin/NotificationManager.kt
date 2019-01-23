@@ -55,7 +55,7 @@ fun showSendErrorNotification(context: Context, content: String, intent: Intent)
     }
 
     val channel = Channel.ERROR
-    val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+    val pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT)
     createChannel(context, channel)
     val mBuilder = NotificationCompat.Builder(context, channel.id)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
