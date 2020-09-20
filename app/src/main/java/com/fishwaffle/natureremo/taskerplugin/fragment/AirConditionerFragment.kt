@@ -14,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.fishwaffle.natureremo.controller.models.AirConRangeMode
 import com.fishwaffle.natureremo.taskerplugin.R
@@ -38,6 +39,7 @@ class AirConditionerFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setTranslationZ(view, 100f)
         val appliance = AirConditionerFragmentArgs.fromBundle(arguments!!).appliance
         //選択可能範囲を取得
         val modes = appliance.aircon!!.range!!.modes

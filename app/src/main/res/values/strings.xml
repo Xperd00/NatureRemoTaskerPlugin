@@ -18,9 +18,4 @@
     <string name="Dir">風向き</string>
     <string name="SendSuccess">送信成功</string>
     <string name="SendError">送信失敗</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="TvPresetButtonList">TVプリセットボタン一覧</string>
-    <string name="SignalButtonList">赤外線ボタン一覧</string>
 </resources>

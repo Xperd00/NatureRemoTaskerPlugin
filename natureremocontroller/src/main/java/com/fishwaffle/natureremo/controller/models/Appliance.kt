@@ -28,7 +28,7 @@ import java.io.Serializable
  */
 @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
 data class Appliance(var id: String?, var device: Device?, var model: ApplianceModel?, var type: String?, var nickname: String? = null,
-                     var image: String?, var settings: AirConParams?, var aircon: AirCon?, var signals: List<Signal>?, var tv: Tv?) : Serializable {
+                     var image: String?, var settings: AirConParams?, var aircon: AirCon?, var signals: List<Signal>?, var tv: Tv?, var light: Light?) : Serializable {
 
 
     /**
@@ -57,7 +57,7 @@ data class Appliance(var id: String?, var device: Device?, var model: ApplianceM
     }
 
     fun addSignal(token: String, message: String, image: SignalImage, name: String): Signal? {
-        return NatureRemo.appliancesApplianceSignalsPOST(token, id!!, message, image, name)
+        return NatureRemo.appliancesApplianceSignalsPost(token, id!!, message, image, name)
     }
 
     /**

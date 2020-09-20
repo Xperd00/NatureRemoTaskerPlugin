@@ -6,6 +6,7 @@ package com.fishwaffle.natureremo.taskerplugin
 
 import android.content.Intent
 import android.os.Bundle
+import com.fishwaffle.natureremo.controller.models.*
 
 
 const val FIRE_SETTING = "com.twofortyfouram.locale.intent.action.FIRE_SETTING"
@@ -22,7 +23,7 @@ const val BUNDLE_TYPE = "com.fishwaffle.natureremo.TYPE"
 
 const val BUNDLE_SIGNAL_ID = "com.fishwaffle.natureremo.SIGNAL_ID"
 
-const val BUNDLE_TV_BUTTON = "com.fishwaffle.natureremo.TV_BUTTON"
+const val BUNDLE_BUTTON = "com.fishwaffle.natureremo.BUTTON"
 
 //エアコン関連
 const val BUNDLE_APPLIANCE_ID = "com.fishwaffle.natureremo.APPLIANCE_ID"
@@ -32,30 +33,24 @@ const val BUNDLE_TEMPERATURE = "com.fishwaffle.natureremo.TEMPERATURE"
 const val BUNDLE_AIR_DIRECTION = "com.fishwaffle.natureremo.AIR_DIRECTION"
 
 enum class Type {
-    SignalSend, AirConSettings, AirConPowerOff, TVSend
-
+    SIGNAL, AirConSettings, AirConPowerOff, TV, LIGHT
 }
 
-fun createTaskerDataSignalSend(applianceName: String, signalName: String, id: String): Intent {
+fun createTaskerDataSend(appliance: Appliance, command: Command): Intent {
     return Intent().apply {
         val bundle = Bundle().apply {
-            putString(BUNDLE_TYPE, Type.SignalSend.toString())
-            putString(BUNDLE_SIGNAL_ID, id)
+            if (command.type == Command.Signal) {
+                putString(BUNDLE_TYPE, Type.SIGNAL.toString())
+                putString(BUNDLE_SIGNAL_ID, (command as Signal).id)
+            }
+            else {
+                putString(BUNDLE_TYPE, appliance.type)
+                putString(BUNDLE_APPLIANCE_ID, appliance.id)
+                putString(BUNDLE_BUTTON, (command as ApplianceButton).name)
+            }
         }
         putExtra(EXTRA_BUNDLE, bundle)
-        putExtra(EXTRA_BLURB, "$applianceName : $signalName")
-    }
-}
-
-fun createTaskerDataTvSend(applianceName: String, applianceId: String, buttonName: String, buttonLabel: String): Intent {
-    return Intent().apply {
-        val bundle = Bundle().apply {
-            putString(BUNDLE_TYPE, Type.TVSend.toString())
-            putString(BUNDLE_APPLIANCE_ID, applianceId)
-            putString(BUNDLE_TV_BUTTON, buttonName)
-        }
-        putExtra(EXTRA_BUNDLE, bundle)
-        putExtra(EXTRA_BLURB, "$applianceName : $buttonLabel")
+        putExtra(EXTRA_BLURB, "${appliance.nickname} : ${command.getTitle()}")
     }
 }
 

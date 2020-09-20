@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fishwaffle.natureremo.controller.NatureRemo
 import com.fishwaffle.natureremo.controller.NatureRemo.isIgnoreUnknown
 import com.fishwaffle.natureremo.controller.SignalImage
-import java.io.Serializable
 
 @JsonIgnoreProperties(ignoreUnknown = isIgnoreUnknown)
-data class Signal(var id: String?, var name: String?, var image: String?) : Serializable {
+data class Signal(var id: String?, var name: String?, var image: String?) : Command(Signal) {
+    override fun getTitle() : String {
+        return name!!
+    }
 
     fun update(token: String, image: SignalImage, name: String): Signal? {
         return NatureRemo.signalsSignalPost(token, id!!, image, name)

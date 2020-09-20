@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import android.os.Looper
 import androidx.core.app.NotificationManagerCompat
 import com.fishwaffle.natureremo.controller.NatureRemo
 import com.fishwaffle.natureremo.controller.exception.AuthenticationException
@@ -16,7 +17,7 @@ import com.fishwaffle.natureremo.controller.exception.RequestLimitException
 import kotlin.concurrent.thread
 
 class MyReceiver : BroadcastReceiver() {
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action.equals(FIRE_SETTING, ignoreCase = true)) {
 
@@ -26,15 +27,15 @@ class MyReceiver : BroadcastReceiver() {
                 }
             }
 
-            val bundle = intent.getBundleExtra(EXTRA_BUNDLE)
-            val blurb = intent.getStringExtra(EXTRA_BLURB)
+            val bundle = intent.getBundleExtra(EXTRA_BUNDLE)!!
+            val blurb = intent.getStringExtra(EXTRA_BLURB)!!
             val typeStr = bundle.getString(BUNDLE_TYPE) ?: return
             val type = Type.valueOf(typeStr)
             thread {
                 try {
 
                     when (type) {
-                        Type.SignalSend -> {
+                        Type.SIGNAL -> {
                             val signal = bundle.getString(BUNDLE_SIGNAL_ID)
                             NatureRemo.signalsSignalSendPost(getToken(context), signal!!)
                         }
@@ -56,13 +57,16 @@ class MyReceiver : BroadcastReceiver() {
                             NatureRemo.appliancesApplianceAirConSettingsPost(getToken(context), appliancesId!!,
                                     temperature, mode, volume, direction,
                                     "")
-
-
                         }
-                        Type.TVSend -> {
+                        Type.TV -> {
                             val appliancesId = bundle.getString(BUNDLE_APPLIANCE_ID)
-                            val button = bundle.getString(BUNDLE_TV_BUTTON)
-                            NatureRemo.appliancesApplianceTvPOST(getToken(context), appliancesId!!, button!!)
+                            val button = bundle.getString(BUNDLE_BUTTON)
+                            NatureRemo.appliancesApplianceTvPost(getToken(context), appliancesId!!, button!!)
+                        }
+                        Type.LIGHT -> {
+                            val appliancesId = bundle.getString(BUNDLE_APPLIANCE_ID)
+                            val button = bundle.getString(BUNDLE_BUTTON)
+                            NatureRemo.appliancesApplianceLightPost(getToken(context), appliancesId!!, button!!)
                         }
                     }
                     //成功した場合

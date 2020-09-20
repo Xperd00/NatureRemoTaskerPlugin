@@ -2,21 +2,23 @@
 
 
 <!--
-  ~ Copyright (c) 2019 FishWaffle.
+  ~ Copyright (c) 2018 FishWaffle.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="3dp"
+    android:paddingStart="8dp">
 
     <TextView
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="30sp"
-        tools:text="エアコン" />
+        android:textSize="24sp"
+        tools:text="電源" />
 
 </LinearLayout>

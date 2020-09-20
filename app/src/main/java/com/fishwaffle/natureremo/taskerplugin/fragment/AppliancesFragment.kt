@@ -59,9 +59,6 @@ class AppliancesFragment : androidx.fragment.app.Fragment() {
                     "AC" -> {
                         Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toAirConditionerFragment(appliance))
                     }
-                    "TV" -> {
-                        Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toTvFragment(appliance))
-                    }
                     else -> {
                         Navigation.findNavController(it).navigate(AppliancesFragmentDirections.toInfraRedFragment(appliance))
                     }
